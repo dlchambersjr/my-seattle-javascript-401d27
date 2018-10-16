@@ -4,7 +4,7 @@
   "description": "![cf](http://i.imgur.com/7v5ASc8.png) Code Fellows Seattle, Javascript 401d27 ===================================== > Advanced Software Development",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --watchAll --forceExit"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/dlchambersjr/seattle-javascript-401d27/issues"
   },
-  "homepage": "https://github.com/dlchambersjr/seattle-javascript-401d27#readme"
+  "homepage": "https://github.com/dlchambersjr/seattle-javascript-401d27#readme",
+  "dependencies": {
+    "jest": "^23.6.0"
+  }
 }
