@@ -1,0 +1,20 @@
+{
+  "name": "seattle-javascript-401d27",
+  "version": "1.0.0",
+  "description": "![cf](http://i.imgur.com/7v5ASc8.png) Code Fellows Seattle, Javascript 401d27 ===================================== > Advanced Software Development",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dlchambersjr/seattle-javascript-401d27.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dlchambersjr/seattle-javascript-401d27/issues"
+  },
+  "homepage": "https://github.com/dlchambersjr/seattle-javascript-401d27#readme"
+}
