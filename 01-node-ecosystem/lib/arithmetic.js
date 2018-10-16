@@ -1,12 +1,13 @@
 'use strict';
 
-module.exports = arithmetic = (firstNum, secondNum) => {
-  if (typeof firstNum !== 'number' || secondNum !== 'number') {
+module.exports = (firstNum, secondNum) => {
+  if (isNaN(firstNum) || isNaN(secondNum)) {
     return null;
   } else {
     let result = {
-      add() { firstNum + secondNum },
-      sub() { firstNum - secondNum }
+      add() { return firstNum + secondNum },
+      sub() { return firstNum - secondNum }
     };
+    return [result.add(), result.sub()];
   }
 }
