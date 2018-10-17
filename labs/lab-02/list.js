@@ -42,7 +42,6 @@ class List {
     // If start is greater than length - return empty/undefined
     if (start > this.length) {return undefined;}
 
-    // FIXME: This is not returning the right value
     // Return elements between start and end when end is greater than length
 
     if (isNaN(end) || end > this.length) {

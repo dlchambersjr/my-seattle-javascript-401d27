@@ -72,6 +72,7 @@ describe('Testing the list class', () => {
 
   });
 
+  //FIXME: Finish Slice Tests
   describe('Check for slice method',() => {
 
     //Test for slice()
