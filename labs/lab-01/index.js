@@ -1,8 +1,8 @@
 'use strict';
 
 // Require the files to be used
-const greet = require('./lib/greet.js');
-const arithmetic = require('./lib/arithmetic.js');
+const greet = require('./greet.js');
+const arithmetic = require('./arithmetic.js');
 
 // Call on greet with a number to generate null
 console.log(greet(21));

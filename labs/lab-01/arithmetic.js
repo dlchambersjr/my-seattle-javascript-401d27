@@ -5,9 +5,9 @@ module.exports = (firstNum, secondNum) => {
     return null;
   } else {
     let result = {
-      add() { return firstNum + secondNum },
-      sub() { return firstNum - secondNum }
+      add() { return firstNum + secondNum; },
+      sub() { return firstNum - secondNum; },
     };
     return [result.add(), result.sub()];
   }
-}
+};
