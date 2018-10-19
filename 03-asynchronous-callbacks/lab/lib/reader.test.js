@@ -83,7 +83,7 @@ describe('Test the reader for proper return order', () => {
     }
   });
 
-  it('should verify that the return order is moe, eeine, moe', (done) => {
+  it('should verify that the return order is moe, eeine, meine', (done) => {
 
     const desiredPaths = ['../data/moe.txt', '../data/eenie.txt', '../data/meenie.txt'];
     const expectedPaths = ['../data/moe.txt', '../data/eenie.txt', '../data/meenie.txt'];
@@ -100,7 +100,7 @@ describe('Test the reader for proper return order', () => {
 
         expect(path).toEqual(expectedPaths[i]);
         expect(fileContents.length).toEqual(expectedLengths[i]);
-        // done();
+        done();
       };
 
       reader(desiredPaths[i], verifyReturnOrder);
