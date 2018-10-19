@@ -1,0 +1,20 @@
+{
+  "name": "lab-03",
+  "version": "1.0.0",
+  "description": "401 JS Lab-03",
+  "main": "reader.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest --watchAll",
+    "lint": "eslint */.js"
+  },
+  "keywords": [],
+  "author": "David Chambers",
+  "license": "MIT",
+  "dependencies": {
+    "eslint": "^5.7.0",
+    "jest": "^23.6.0"
+  }
+}
