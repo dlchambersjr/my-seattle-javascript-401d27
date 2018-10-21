@@ -10,15 +10,18 @@ xdescribe('Test to verify that CLI arguments can be reveived', () => { });
 describe('Test to verify a file can be read ', () => {
 
   it('should successfully load a file into the buffer', () => {
+    console.log(`${__dirname}`);
+    console.log(`${__dirname}/../assets/baldy.bmp`);
 
-    readFile(`${__dirname}/../assets/baldy.bmp`, (err, actual) => {
-      if (err) {
-        throw err;
-      }
+
+
+    let actual = readFile(`${__dirname}/../assets/baldy.bmp`, (err, actual) => {
+      if (err) throw console.error(err);
+      let expected = 0;
       console.log(actual.length);
-      const expected = 0;
       expect(actual.length).not.toBe(expected);
     });
+
 
 
 

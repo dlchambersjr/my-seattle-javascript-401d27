@@ -5,6 +5,8 @@ const fs = require('fs');
 //module for the reader function
 module.exports = (path, doneReadingFiles) => {
 
+  console.log('PATH:', path);
+
   const gotTheFile = (err, fileData) => {
     if (err) {
       doneReadingFiles(err);

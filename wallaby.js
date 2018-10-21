@@ -2,10 +2,9 @@ module.exports = function () {
 
   return {
 
-    files: ['04-binary-data/lab-04/libs/**/*.js'],
+    files: ['/03-asynchronous-callbacks/lab/libs/**/*.js'],
 
-
-    tests: ['04-binary-data/lab-04/tests/**/*.test.js'],
+    tests: ['03-asynchronous-callbacks/lab/tests/**/*.test.js'],
 
     env: {
 
