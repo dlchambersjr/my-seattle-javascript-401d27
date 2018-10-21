@@ -1,7 +1,10 @@
 'use strict';
-
+//load the node.js file system;
 const fs = require('fs');
 
+// define working names for the modules
+const readFile = require('./libs/read-file.js');
+const parse = require('./libs/read-file.js');
 
 
 /**
