@@ -4,13 +4,14 @@
 
 const readFile = require('../libs/read-file.js');
 const writeFile = require('../libs/write-file.js');
+const Bitmap = require('../libs/bmp-parse.js');
 
 
 xdescribe('Test to verify that CLI arguments can be received', () => { });
 
 describe('Test to verify file I/O for read and write ', () => {
 
-  it('should successfully load a file into the buffer', () => {
+  xit('should successfully load a file into the buffer', () => {
 
     readFile(`${__dirname}/../assets/baldy.bmp`, (err, actual) => {
       if (err) throw console.error(err);
@@ -20,7 +21,7 @@ describe('Test to verify file I/O for read and write ', () => {
 
   });
 
-  it(`should write a new file with name 'newbaldy'`, (done) => {
+  xit(`should write a new file with name 'newbaldy'`, (done) => {
 
     readFile(`${__dirname}/../assets/baldy.bmp`, (err, buffer) => {
       if (err) throw console.error(err);
@@ -44,21 +45,67 @@ describe('Test to verify file I/O for read and write ', () => {
 
 });
 
+describe('Test to verify a new Bitmap instance can be made.', () => {
+
+  it('should make a new instance of Bitmap with the passed filename', () => {
+
+    const nameArg = '/../assets/baldy.bmp';
+
+    const actual = new Bitmap(nameArg);
+    const expected = '/../assets/baldy.bmp';
+
+    expect(actual.file).toBe(expected);
+  });
+
+});
 
 describe('Test to verify the file is a BMP and can be parsed', () => {
 
-  it('should verify that the file is a BMP', () => {
+  it('should verify that the file is a BMP', (done) => {
 
-    const actual = 'TBD';
-    const expected = 'TBF';
+    const nameArg = '../assets/baldy.bmp';
+    const path = `${__dirname}/${nameArg}`;
+    const bitmap = new Bitmap(nameArg);
 
-    expect(actual).toBe(expected);
+    readFile(path, (err, buffer) => {
+      if (err) throw console.error(err);
+      const actual = bitmap.parseBitmap(buffer);
+      const expected = 'BM';
+      expect(actual.type).toBe(expected);
+      done();
+    });
 
   });
 
-  xit('should find the color table for the BMP', () => { });
+  it('should find the color table for the BMP', (done) => {
 
-  xit('should find the start of the pixel data for the BMP', () => { });
+    const nameArg = '../assets/baldy.bmp';
+    const path = `${__dirname}/${nameArg}`;
+    const bitmap = new Bitmap(nameArg);
+
+    readFile(path, (err, buffer) => {
+      if (err) throw console.error(err);
+      const actual = bitmap.parseBitmap(buffer);
+      const expected = 134;
+      expect(actual.colorChart).toBe(expected);
+      done();
+    });
+  });
+
+  it('should find the start of the pixel data for the BMP', (done) => {
+
+    const nameArg = '../assets/baldy.bmp';
+    const path = `${__dirname}/${nameArg}`;
+    const bitmap = new Bitmap(nameArg);
+
+    readFile(path, (err, buffer) => {
+      if (err) throw console.error(err);
+      const actual = bitmap.parseBitmap(buffer);
+      const expected = 1146;
+      expect(actual.pixels).toBe(expected);
+      done();
+    });
+  });
 
 });
 
