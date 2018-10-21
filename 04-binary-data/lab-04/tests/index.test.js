@@ -11,9 +11,9 @@ describe('Test to verify a file can be read ', () => {
 
   it('should successfully load a file into the buffer', () => {
 
-    let buffer = readFile('../assets/baldy.bmp');
+    // let buffer = readFile('../assets/baldy.bmp');
 
-    
+
 
   });
 

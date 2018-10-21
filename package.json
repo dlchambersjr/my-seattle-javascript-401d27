@@ -1,0 +1,24 @@
+{
+  "name": "my-seattle-javascript-401d27",
+  "version": "1.0.0",
+  "description": "Code Fellows Seattle, Javascript 401d27 => Advanced Software Development",
+  "main": "''",
+  "scripts": {
+    "test": "jest --verbose",
+    "lint": "eslint **/.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dlchambersjr/my-seattle-javascript-401d27.git"
+  },
+  "author": "David Chambers and 401 Instructional Staff",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dlchambersjr/my-seattle-javascript-401d27/issues"
+  },
+  "homepage": "https://github.com/dlchambersjr/my-seattle-javascript-401d27#readme",
+  "devDependencies": {
+    "eslint": "^5.7.0",
+    "jest": "^23.6.0"
+  }
+}
