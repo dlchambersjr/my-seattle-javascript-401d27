@@ -11,9 +11,16 @@ describe('Test to verify a file can be read ', () => {
 
   it('should successfully load a file into the buffer', () => {
 
-    let buffer = readFile('../assets/baldy.bmp');
+    readFile(`${__dirname}/../assets/baldy.bmp`, (err, actual) => {
+      if (err) {
+        throw err;
+      }
+      console.log(actual.length);
+      const expected = 0;
+      expect(actual.length).not.toBe(expected);
+    });
 
-    
+
 
   });
 
@@ -21,7 +28,7 @@ describe('Test to verify a file can be read ', () => {
 
 xdescribe('Test to see if the buffer can be written to a file with a different name', () => { });
 
-describe('Test to verify the file is a BMP and can be parsed', () => {
+xdescribe('Test to verify the file is a BMP and can be parsed', () => {
 
   it('should verify that the file is a BMP', () => {
 
