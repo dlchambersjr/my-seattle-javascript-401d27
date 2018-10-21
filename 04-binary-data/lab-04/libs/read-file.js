@@ -10,7 +10,7 @@ module.exports = (path, doneReadingFile) => {
       doneReadingFile(err);
       return;
     }
-    doneReadingFile(null, fileData.toString());
+    doneReadingFile(null, fileData);
   };
 
   fs.readFile(path, gotTheFile);
