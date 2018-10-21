@@ -11,7 +11,8 @@ class Bitmap {
 
   parseBitmap(buffer) {
 
-    console.log('In the buffer.length');
+    // file buffer
+    this.buffer = buffer;
 
     // fileType
     this.type = buffer.toString('utf-8', 0, 2);
@@ -29,6 +30,7 @@ class Bitmap {
     this.colorChart = (this.sizeOfTheDIBHeader + 14 + 12);
     // Start of pixels
     this.pixels = buffer.readInt32LE(10);
+
     return this;
   }
 }

@@ -5,7 +5,7 @@
 const readFile = require('../libs/read-file.js');
 const writeFile = require('../libs/write-file.js');
 const Bitmap = require('../libs/bmp-parse.js');
-
+const makeGreen = require('../libs/green.js');
 
 xdescribe('Test to verify that CLI arguments can be received', () => { });
 
@@ -109,6 +109,67 @@ describe('Test to verify the file is a BMP and can be parsed', () => {
 
 });
 
-xdescribe('Test to verify color table transformations', () => { });
+describe('Test to verify color table transformations', () => {
+
+  const nameArg = '../assets/baldy.bmp';
+  const operationArg = 'makeGreen';
+  const path = `${__dirname}/${nameArg}`;
+  const outputPath = `${__dirname}/${operationArg}`;
+  const bitmap = new Bitmap(nameArg);
+
+  it(`should transform the file by replacing the reds with greens`, (done) => {
+
+    readFile(path, (err, buffer) => {
+      if (err) throw console.error(err);
+      bitmap.parseBitmap(buffer);
+      makeGreen(bitmap);
+
+      writeFile(outputPath, buffer, (err) => {
+        if (!err) {
+          readFile(outputPath, (err, actual) => {
+            if (err) throw console.error(err);
+            let expected = 15146;
+            expect(actual.length).toBe(expected);
+            done();
+          });
+        } else {
+          throw console.log(err);
+        }
+      });
+
+
+
+
+
+    });
+
+    readFile(`${__dirname}/../assets/baldy.bmp`, (err, buffer) => {
+      if (err) throw console.error(err);
+      if (buffer) {
+
+
+
+
+
+
+        writeFile(`${__dirname}/../assets/greenbaldy.bmp`, buffer, (err) => {
+          if (!err) {
+            readFile(`${__dirname}/../assets/greenbaldy.bmp`, (err, actual) => {
+              if (err) throw console.error(err);
+              let expected = 15146;
+              expect(actual.length).toBe(expected);
+              done();
+            });
+          } else {
+            throw console.log(err);
+          }
+        });
+      }
+    });
+
+  });
+
+
+});
 
 xdescribe('Test to verify rasterization can take place', () => { });
