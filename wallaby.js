@@ -2,7 +2,7 @@ module.exports = function () {
 
   return {
 
-    files: ['/04-binary-data/lab-04/libs/**/*.js'],
+    files: ['04-binary-data/lab-04/**/*.js'],
 
     tests: ['04-binary-data/lab-04/tests/**/*.test.js'],
 

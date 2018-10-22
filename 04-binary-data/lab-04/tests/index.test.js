@@ -2,6 +2,8 @@
 
 // const fs = require('fs');
 
+const indexFile = require('../index.js');
+
 const readFile = require('../libs/read-file.js');
 const writeFile = require('../libs/write-file.js');
 const Bitmap = require('../libs/bmp-parse.js');

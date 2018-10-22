@@ -3,34 +3,20 @@
 const fs = require('fs');
 
 // define working names for the modules
-// const readFile = require('./libs/read-file.js');
-// const parse = require('./libs/read-file.js');
-
-
-/**
- * Bitmap -- receives a file name, used in the transformer to note the new buffer
- * @param filePath
- * @constructor
- */
-function Bitmap(filePath) {
-  this.file = filePath;
-}
-
-/**
- * Parser -- accepts a buffer and will parse through it, according to the specification, creating object properties for each segment of the file
- * @param buffer
- */
-Bitmap.prototype.parse = function (buffer) {
-  this.type = buffer.toString('utf-8', 0, 2);
-  //... and so on
-};
+const readFile = require('../libs/read-file.js');
+const writeFile = require('../libs/write-file.js');
+const Bitmap = require('../libs/bmp-parse.js');
+const makeGreen = require('../libs/green.js');
+const makeNegative = require('../libs/negative.js')
+const makeVisor = require('../libs/makeVisor.js');
 
 /**
  * Transform a bitmap using some set of rules. The operation points to some function, which will operate on a bitmap instance
  * @param operation
  */
-Bitmap.prototype.transform = function (operation) {
+const transform = (parsedBitmap, operation) => {
   // This is really assumptive and unsafe
+  console.log(9 + 9);
   transforms[operation](this);
   this.newFile = this.file.replace(/\.bmp/, `.${operation}.bmp`);
 };
@@ -56,39 +42,53 @@ const transformGreyscale = (bmp) => {
  * Each property represents a transformation that someone could enter on the command line and then a function that would be called on the bitmap to do this job
  */
 const transforms = {
-  greyscale: transformGreyscale,
+  green: makeGreen,
+  negative: makeNegative,
+  visor: makeVisor,
 };
 
 // ------------------ GET TO WORK ------------------- //
 
 function transformWithCallbacks() {
 
-  fs.readFile(file, (err, buffer) => {
+  readFile(file, (err, buffer) => {
 
     if (err) {
       throw err;
     }
 
-    bitmap.parse(buffer);
+    // Get the BMP info
+    rawBitmap.parseBitmap(buffer, parsedBitmap => {
 
-    bitmap.transform(operation);
+      if (this.type !== 'BM') {
+        console.error(`Filename: ${file} is not a valid Bitmap file!`);
+        return;
+      }
+
+      // Call for the the transformation
+      transform(this, operation, transformedBitmap => {
+
+        fs.writeFile(this.newFile, this.buffer, (err, out) => {
+          if (err) {
+            throw err;
+          }
+          console.log(`Bitmap Transformed: ${transformedBitmap.newFile}`);
+        });
+
+      });
+
+    });
+
 
     // Note that this has to be nested!
     // Also, it uses the bitmap's instance properties for the name and thew new buffer
-    fs.writeFile(bitmap.newFile, bitmap.buffer, (err, out) => {
-      if (err) {
-        throw err;
-      }
-      console.log(`Bitmap Transformed: ${bitmap.newFile}`);
-    });
 
   });
 }
 
-// TODO: Explain how this works (in your README)
 const [file, operation] = process.argv.slice(2);
 
-let bitmap = new Bitmap(file);
+let rawBitmap = new Bitmap(file);
 
 transformWithCallbacks();
 
