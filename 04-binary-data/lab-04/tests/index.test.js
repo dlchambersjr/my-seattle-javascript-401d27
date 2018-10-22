@@ -113,9 +113,11 @@ describe('Test to verify the file is a BMP and can be parsed', () => {
 describe('Test to verify color table transformations', () => {
 
   const nameArg = '../assets/baldy.bmp';
-  const operationArg = 'makeGreen';
+  const operationArg = 'makeGreen.bmp';
   const path = `${__dirname}/${nameArg}`;
-  const outputPath = `${__dirname}/${operationArg}`;
+  const outputPath = `${__dirname}/../assets/${operationArg}`;
+  console.log(outputPath);
+
   const bitmap = new Bitmap(nameArg);
 
   it(`should transform the file by replacing the reds with greens`, (done) => {
@@ -123,9 +125,9 @@ describe('Test to verify color table transformations', () => {
     readFile(path, (err, buffer) => {
       if (err) throw console.error(err);
       bitmap.parseBitmap(buffer);
-      bitmap.makeGreen();
+      makeGreen(bitmap);
 
-      writeFile(outputPath, buffer, (err) => {
+      writeFile(outputPath, bitmap.buffer, (err) => {
         if (!err) {
           readFile(outputPath, (err, actual) => {
             if (err) throw console.error(err);
@@ -144,29 +146,29 @@ describe('Test to verify color table transformations', () => {
 
     });
 
-    readFile(`${__dirname}/../assets/baldy.bmp`, (err, buffer) => {
-      if (err) throw console.error(err);
-      if (buffer) {
+    // readFile(`${__dirname}/../assets/baldy.bmp`, (err, buffer) => {
+    //   if (err) throw console.error(err);
+    //   if (buffer) {
 
 
 
 
 
 
-        writeFile(`${__dirname}/../assets/greenbaldy.bmp`, buffer, (err) => {
-          if (!err) {
-            readFile(`${__dirname}/../assets/greenbaldy.bmp`, (err, actual) => {
-              if (err) throw console.error(err);
-              let expected = 15146;
-              expect(actual.length).toBe(expected);
-              done();
-            });
-          } else {
-            throw console.log(err);
-          }
-        });
-      }
-    });
+    //     // writeFile(`${__dirname}/../assets/greenbaldy.bmp`, buffer, (err) => {
+    //     //   if (!err) {
+    //     //     readFile(`${__dirname}/../assets/greenbaldy.bmp`, (err, actual) => {
+    //     //       if (err) throw console.error(err);
+    //     //       let expected = 15146;
+    //     //       expect(actual.length).toBe(expected);
+    //     //       done();
+    //     //     });
+    //     //   } else {
+    //     //     throw console.log(err);
+    //     //   }
+    //     // });
+    //   }
+    // });
 
   });
 
