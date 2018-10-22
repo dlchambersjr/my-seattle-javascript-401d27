@@ -1,15 +1,14 @@
 'use script';
 
-// const fs = require('fs');
-
-const indexFile = require('../index.js');
-
 const readFile = require('../libs/read-file.js');
 const writeFile = require('../libs/write-file.js');
 const Bitmap = require('../libs/bmp-parse.js');
 const makeGreen = require('../libs/green.js');
 const makeNegative = require('../libs/negative.js')
 const makeVisor = require('../libs/makeVisor.js');
+
+const nameArg = '../assets/baldy.bmp';
+const path = `${__dirname}/${nameArg}`;
 
 describe('Test to verify file I/O for read and write ', () => {
 
@@ -53,7 +52,6 @@ describe('Test to verify a new Bitmap instance can be made.', () => {
   it('should make a new instance of Bitmap with the passed filename', () => {
 
     const nameArg = '/../assets/baldy.bmp';
-
     const actual = new Bitmap(nameArg);
     const expected = '/../assets/baldy.bmp';
 
@@ -66,47 +64,44 @@ describe('Test to verify the file is a BMP and can be parsed', () => {
 
   it('should verify that the file is a BMP', (done) => {
 
-    const nameArg = '../assets/baldy.bmp';
-    const path = `${__dirname}/${nameArg}`;
     const bitmap = new Bitmap(nameArg);
 
     readFile(path, (err, buffer) => {
       if (err) throw console.error(err);
-      const actual = bitmap.parseBitmap(buffer);
-      const expected = 'BM';
-      expect(actual.type).toBe(expected);
-      done();
+      bitmap.parseBitmap(buffer, actual => {
+        const expected = 'BM';
+        expect(actual.type).toBe(expected);
+        done();
+      });
     });
 
   });
 
   it('should find the color table for the BMP', (done) => {
 
-    const nameArg = '../assets/baldy.bmp';
-    const path = `${__dirname}/${nameArg}`;
     const bitmap = new Bitmap(nameArg);
 
     readFile(path, (err, buffer) => {
       if (err) throw console.error(err);
-      const actual = bitmap.parseBitmap(buffer);
-      const expected = 134;
-      expect(actual.colorChart).toBe(expected);
-      done();
+      bitmap.parseBitmap(buffer, actual => {
+        const expected = 134;
+        expect(actual.colorChart).toBe(expected);
+        done();
+      });
     });
   });
 
   it('should find the start of the pixel data for the BMP', (done) => {
 
-    const nameArg = '../assets/baldy.bmp';
-    const path = `${__dirname}/${nameArg}`;
     const bitmap = new Bitmap(nameArg);
 
     readFile(path, (err, buffer) => {
       if (err) throw console.error(err);
-      const actual = bitmap.parseBitmap(buffer);
-      const expected = 1146;
-      expect(actual.pixels).toBe(expected);
-      done();
+      bitmap.parseBitmap(buffer, actual => {
+        const expected = 1146;
+        expect(actual.pixels).toBe(expected);
+        done();
+      });
     });
   });
 
@@ -114,33 +109,29 @@ describe('Test to verify the file is a BMP and can be parsed', () => {
 
 describe('Test to verify color table transformations', () => {
 
+  it(`should transform the file by replacing the blues with greens`, (done) => {
 
-
-  it(`should transform the file by replacing the reds with greens`, (done) => {
-
-    const nameArg = '../assets/baldy.bmp';
     const operationArg = 'makeGreen.bmp';
-    const path = `${__dirname}/${nameArg}`;
     const outputPath = `${__dirname}/../assets/${operationArg}`;
     const bitmap = new Bitmap(nameArg);
     console.log(outputPath);
 
     readFile(path, (err, buffer) => {
       if (err) throw console.error(err);
-      bitmap.parseBitmap(buffer);
-      makeGreen(bitmap);
-
-      writeFile(outputPath, bitmap.buffer, (err) => {
-        if (!err) {
-          readFile(outputPath, (err, actual) => {
-            if (err) throw console.error(err);
-            let expected = 15146;
-            expect(actual.length).toBe(expected);
-            done();
-          });
-        } else {
-          throw console.log(err);
-        }
+      bitmap.parseBitmap(buffer, bitmap => {
+        makeGreen(bitmap);
+        writeFile(outputPath, bitmap.buffer, (err) => {
+          if (!err) {
+            readFile(outputPath, (err, actual) => {
+              if (err) throw console.error(err);
+              let expected = 15146;
+              expect(actual.length).toBe(expected);
+              done();
+            });
+          } else {
+            throw console.log(err);
+          }
+        });
       });
     });
 
@@ -148,60 +139,59 @@ describe('Test to verify color table transformations', () => {
 
   it('should creative a photo negative from the color chart', (done) => {
 
-    const nameArg = '../assets/baldy.bmp';
     const operationArg = 'makeNegative.bmp';
-    const path = `${__dirname}/${nameArg}`;
     const outputPath = `${__dirname}/../assets/${operationArg}`;
     const bitmap = new Bitmap(nameArg);
     console.log(outputPath);
 
     readFile(path, (err, buffer) => {
       if (err) throw console.error(err);
-      bitmap.parseBitmap(buffer);
-      makeNegative(bitmap);
+      bitmap.parseBitmap(buffer, bitmap => {
+        makeNegative(bitmap);
 
-      writeFile(outputPath, bitmap.buffer, (err) => {
-        if (!err) {
-          readFile(outputPath, (err, actual) => {
-            if (err) throw console.error(err);
-            let expected = 15146;
-            expect(actual.length).toBe(expected);
-            done();
-          });
-        } else {
-          throw console.log(err);
-        }
+        writeFile(outputPath, bitmap.buffer, (err) => {
+          if (!err) {
+            readFile(outputPath, (err, actual) => {
+              if (err) throw console.error(err);
+              let expected = 15146;
+              expect(actual.length).toBe(expected);
+              done();
+            });
+          } else {
+            throw console.log(err);
+          }
+        });
       });
     });
   });
 });
 
 describe('Test to verify rasterization can take place', () => {
+
   it('should creative a visor over the eyes by modifying the pixels.', (done) => {
 
-    const nameArg = '../assets/baldy.bmp';
     const operationArg = 'makeVisor.bmp';
-    const path = `${__dirname}/${nameArg}`;
     const outputPath = `${__dirname}/../assets/${operationArg}`;
     const bitmap = new Bitmap(nameArg);
     console.log(outputPath);
 
     readFile(path, (err, buffer) => {
       if (err) throw console.error(err);
-      bitmap.parseBitmap(buffer);
-      makeVisor(bitmap);
+      bitmap.parseBitmap(buffer, bitmap => {
+        makeVisor(bitmap);
 
-      writeFile(outputPath, bitmap.buffer, (err) => {
-        if (!err) {
-          readFile(outputPath, (err, actual) => {
-            if (err) throw console.error(err);
-            let expected = 15146;
-            expect(actual.length).toBe(expected);
-            done();
-          });
-        } else {
-          throw console.log(err);
-        }
+        writeFile(outputPath, bitmap.buffer, (err) => {
+          if (!err) {
+            readFile(outputPath, (err, actual) => {
+              if (err) throw console.error(err);
+              let expected = 15146;
+              expect(actual.length).toBe(expected);
+              done();
+            });
+          } else {
+            throw console.log(err);
+          }
+        });
       });
     });
   });
