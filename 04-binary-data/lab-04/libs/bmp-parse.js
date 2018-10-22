@@ -5,11 +5,12 @@
 class Bitmap {
   constructor(fileName) {
     this.file = fileName;
+    this.newFile = null;
   }
 
   //the following information is need to manipulate the bitmap.
 
-  parseBitmap(buffer) {
+  parseBitmap(buffer, parsed) {
 
     // file buffer
     this.buffer = buffer;
@@ -31,7 +32,7 @@ class Bitmap {
     // Start of pixels
     this.pixels = buffer.readInt32LE(10);
 
-    return this;
+    parsed(this);
   }
 }
 
