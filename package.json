@@ -1,10 +1,10 @@
 {
   "name": "my-seattle-javascript-401d27",
   "version": "1.0.0",
-  "description": "Code Fellows Seattle, Javascript 401d27 => Advanced Software Development",
-  "main": "''",
+  "description": "![cf](http://i.imgur.com/7v5ASc8.png) Code Fellows Seattle, Javascript 401d27 ===================================== > Advanced Software Development",
+  "main": "",
   "scripts": {
-    "test": "jest --verbose",
+    "test": "jest --verbose --watchAll",
     "lint": "eslint **/.js"
   },
   "repository": {

@@ -44,6 +44,7 @@ console.log('starting address', parsedBitmap.startingAddress);
 for (let i = 800; i < 1146; i++) {
   console.log(buffer[i]);
 }
+
 */
 // for (let i = 134; i < 1146; i += 4) {
 //   if (buffer[i] === 198 && buffer[i + 1] === 227 && buffer[i + 2] === 250) {
@@ -59,13 +60,17 @@ for (let i = 800; i < 1146; i++) {
 
 // buffer[1096] = 0;
 
-
+// Make Green
 // for (let i = 134; i < 1146; i += 4) {
 //   buffer[i + 1] = 255;
 // }
 
-
-
+// // create a negative
+// for (let i = this.colorChart; i < this.pixels; i += 4) {
+//   this.buffer[i + 1] *= 255;
+//   this.buffer[i + 2] *= 255;
+//   this.buffer[i + 3] *= 255;
+// }
 
 /*
 for (let i = 10000; i >= 1146; i--) {
@@ -84,57 +89,38 @@ console.log(buffer[1149]);
 
 
 
-
-for (let i = 1146; i < buffer.length; i += 4) {
-  buffer[i] = 255;
-  buffer[i + 1] = 192;
-  buffer[i + 2] = 128;
-  buffer[i + 3] = 64;
-}
-
-
-
-
-
 // for (let i = 1146; i < buffer.length; i += 4) {
-//   buffer[i] = Math.random() * 255;
-//   buffer[i + 1] = Math.random() * 255;
-//   buffer[i + 2] = Math.random() * 255;
-//   buffer[i + 3] = Math.random() * 255;
+//   buffer[i] = 255;
+//   buffer[i + 1] = 192;
+//   buffer[i + 2] = 128;
+//   buffer[i + 3] = 64;
 // }
 
 
 
 
 
-
-// for (let i = 1146; i < buffer.length; i++) {
-//   if (buffer[i] > 100) {
-//     buffer[i] = 0xFF;
-//   }
-// }
-
-
-
-
-
-
-
-/*
-for (let i = 1212747008; i < buffer.length; i+=4) {
-  buffer[i] = Math.random()*255;
-  buffer[i+1] = Math.random()*255;
-  buffer[i+2] = Math.random()*255;
-  buffer[i+3] = Math.random()*255;
-}
-*/
-/*
-for (let i = 1212747008; i < buffer.length; i++) {
-  if (buffer[i] > 100) {
-    buffer[i] = 150;
+// ####################### 
+// Randomize the pixels
+// #######################
+for (let i = 8000; i < 9000; i += 4) {
+  if (i >= 8000 && i <= 9000) {
+    buffer[i] = Math.random() * 255;
+    buffer[i + 1] = Math.random() * 255;
+    buffer[i + 2] = Math.random() * 255;
+    buffer[i + 3] = Math.random() * 255;
   }
 }
-*/
+
+
+for (let i = 8000; i < 8001; i++) {
+  buffer[i] = 255;
+}
+
+
+
+
+
 
 //let newbuffer = buffer;
-fs.writeFile(`${__dirname}/newbaldy.bmp`, buffer, (err, data) => { });
+fs.writeFile(`${__dirname}/pixelbaldy.bmp`, buffer, (err, data) => { });
