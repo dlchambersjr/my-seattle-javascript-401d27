@@ -65,11 +65,12 @@ for (let i = 800; i < 1146; i++) {
 //   buffer[i + 1] = 255;
 // }
 
-for (let i = this.colorChart; i < this.pixels; i += 4) {
-  this.buffer[i + 1] -= 255;
-  this.buffer[i + 2] -= 255;
-  this.buffer[i + 3] -= 255;
-}
+// // create a negative
+// for (let i = this.colorChart; i < this.pixels; i += 4) {
+//   this.buffer[i + 1] *= 255;
+//   this.buffer[i + 2] *= 255;
+//   this.buffer[i + 3] *= 255;
+// }
 
 /*
 for (let i = 10000; i >= 1146; i--) {
@@ -102,27 +103,24 @@ console.log(buffer[1149]);
 // ####################### 
 // Randomize the pixels
 // #######################
-// for (let i = 1146; i < buffer.length; i += 4) {
-//   buffer[i] = Math.random() * 255;
-//   buffer[i + 1] = Math.random() * 255;
-//   buffer[i + 2] = Math.random() * 255;
-//   buffer[i + 3] = Math.random() * 255;
-// }
+for (let i = 8000; i < 9000; i += 4) {
+  if (i >= 8000 && i <= 9000) {
+    buffer[i] = Math.random() * 255;
+    buffer[i + 1] = Math.random() * 255;
+    buffer[i + 2] = Math.random() * 255;
+    buffer[i + 3] = Math.random() * 255;
+  }
+}
 
 
+for (let i = 8000; i < 8001; i++) {
+  buffer[i] = 255;
+}
 
-
-
-
-// for (let i = 1146; i < buffer.length; i++) {
-//   if (buffer[i] > 100) {
-//     buffer[i] = 0xFF;
-//   }
-// }
 
 
 
 
 
 //let newbuffer = buffer;
-fs.writeFile(`${__dirname}/negativebaldy.bmp`, buffer, (err, data) => { });
+fs.writeFile(`${__dirname}/pixelbaldy.bmp`, buffer, (err, data) => { });
