@@ -17,14 +17,14 @@ const server = net.createServer();
 const ee = new EE();
 
 // Create a clientPool to hold the active users
-const clientPool = [];
+let clientPool = [];
 
 //Create a connection event
 server.on('connection', (socket) => {
-  const client = new Client(socket);
+  let client = new Client(socket);
   clientPool.push(client);
 
-  client.socket.write('Welcome to the OASIS!.  Our Virtual Reality System is receiving an upgrade. Please use the text interface at this time...  Have a nice day!');
+  client.socket.write('Welcome to the OASIS!.\r\nOur Virtual Reality System is receiving an upgrade.\r\nPlease use the text interface at this time...\r\nHave a nice day!\r\n');
 
   // Process user input
   socket.on('data', (data) => {
@@ -36,9 +36,9 @@ server.on('connection', (socket) => {
       return;
     }
 
-    // What to do as teh default
+    // What to do as the default
     ee.emit('default', client);
-  })
+  });
 
 });
 
@@ -49,37 +49,47 @@ server.on('connection', (socket) => {
 // Send a message to all users
 ee.on('@all', (client, message) => {
   clientPool.forEach(user => {
-    user.socket.write(`${client.nickname}: ${message}`);
+    user.socket.write(`${client.nickname}: ${message}\r\n`);
   });
 });
 
 ee.on('@nickname', (client, string) => {
   let nickname = string.split(' ').shift().trim();
   client.nickname = nickname;
-  client.socket.write(`Your nickname is now ${nickname}\n`);
+  client.socket.write(`Your nickname is now ${nickname}\r\n`);
 });
 
 ee.on('@list', (client) => {
-  let listOfUsers = []
+  let listOfUsers = [];
   clientPool.forEach(user => {
     listOfUsers.push(user.nickname);
   });
-  client.socket.write(`The following users are currently in the OASIS: ${listOfUsers}`);
+  client.socket.write(`The following users are currently in the OASIS: ${listOfUsers}\r\n`);
+
 });
 
-// FIXME:
 ee.on('@quit', (client, message) => {
+  let removeId = client.id;
+  clientPool = clientPool.filter(user => user.id !== removeId);
   client.socket.end(message);
-  let removeUser = client.nickname;
-  clientPool.filter(nickname => nickname !== removeUser);
 });
 
+ee.on('@dm', (client, string) => {
+  let dmUser = string.split(' ').shift().trim();
+  let dmMessage = string.split(' ').splice(1).join(' ');
+  let user = clientPool.find(user => user.nickname === dmUser);
 
+  if (user) {
+    user.socket.write(`SENT FROM ${client.nickname}: ${dmMessage}\r\n`);
+    client.socket.write(`SENT TO ${dmUser}: ${dmMessage} \r\n`);
+  } else client.socket.write(`USER DOES NOT EXIST \r\n`);
+
+});
 
 ee.on('default', (client) => {
-  client.socket.write('Please begin all commands with a @\n');
+  client.socket.write('Please begin all commands with a @\r\n');
 });
 
 
 // Activate the server
-server.listen(PORT, () => console.log(`The OASIS is live on PORT: ${PORT}`));
+server.listen(PORT, () => console.log(`The OASIS is live on PORT: ${PORT} `));
