@@ -2,9 +2,9 @@ module.exports = function () {
 
   return {
 
-    files: ['04-binary-data/lab-04/libs/**/*.js'],
+    files: ['libs/**/*.js'],
 
-    tests: ['04-binary-data/lab-04/tests/**/*.test.js'],
+    tests: ['tests/**/*.test.js'],
 
     env: {
 

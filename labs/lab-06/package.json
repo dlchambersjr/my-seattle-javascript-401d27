@@ -1,0 +1,17 @@
+{
+  "name": "lab-06",
+  "version": "1.0.0",
+  "description": "Lab-06 TCP Chat Server",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest --verbose --watchAll",
+    "lint": "eslint **/.js",
+    "start": "node server.js"
+  },
+  "author": "David Chambers",
+  "license": "MIT"
+}
