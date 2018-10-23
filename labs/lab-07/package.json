@@ -1,0 +1,14 @@
+{
+  "name": "lab-07",
+  "version": "1.0.0",
+  "description": "Lab-07",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest --verbose --WatchAll"
+  },
+  "author": "David Chambers",
+  "license": "MIT"
+}
