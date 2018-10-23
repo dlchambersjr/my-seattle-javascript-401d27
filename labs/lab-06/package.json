@@ -16,7 +16,6 @@
   "license": "MIT",
   "dependencies": {
     "dotenv": "^6.1.0",
-    "ee": "^0.1.0",
     "events": "^3.0.0",
     "net": "^1.0.2",
     "uuid": "^3.3.2"
