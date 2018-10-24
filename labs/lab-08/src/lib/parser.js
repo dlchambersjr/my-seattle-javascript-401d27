@@ -5,22 +5,33 @@ const url = require('url');
 const queryString = require('querystring');
 
 module.exports = (request) => {
-  console.log(request.header);
+
   return new Promise((resolve, reject) => {
+
     if (!(request || request.url)) { reject('Invalid Request Object. Cannot Parse'); }
 
     // Parse the URL
     request.parsed = url.parse(request.url);
-    console.log('PARSED:', request.parsed.query);
+    /*
+       req.parsed = {
+         pathname: '/api/vi/notes',
+         query: '?id=12345&name=John',
+       }
+      */
 
     // Parse the querystring
     request.query = queryString.parse(request.parsed.query);
-    console.log('QUERY:', request.query);
+    /*
+      req.query = {
+        id:12345,
+        name:'John'
+      }
+     */
 
     // If nothing is passed to the url
-    if (request.parsed.query === null) {
-      request.query.text = `I need something to say, Use: ?text='your text here'`;
-    }
+    // if (request.parsed.query === null) {
+    //   request.query.text = `I need something to say, Use: ?text='your text here'`;
+    // }
 
     // POST|PUT|PATCH
     if (!request.method.match(/POST|PUT|PATCH/)) {
