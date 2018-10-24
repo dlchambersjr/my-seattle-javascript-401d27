@@ -47,20 +47,20 @@ Configure the root of your repository with the following files and directories. 
 ### `/api/v1/notes`
 **These will be "proof of life" endpoints, to prove server health**
 
-* `POST` request
+#### `POST` request
  * pass data as stringifed JSON in the body of a **POST** request 
  * return a 200 response with the POST'd JSON as the content
  * (Prove that you got the JSON from the POST)
-* `PUT` request
+#### `PUT` request
  * pass `?id=<uuid>` as a query string parameter to identify a specific resource
   * pass data as stringifed JSON in the body of a **POST** request 
   * return a 200 response with the JSON as the content
   * (Prove that you got the JSON from the PUT)
-* `GET` request
+#### `GET` request
  * pass `?id=<uuid>` as a query string parameter to identify a specific resource
  * return a 200 response, and a message that states "ID: <id>" was requested
  * (Prove that you got the id from the query string)
- * `DELETE` request
+#### `DELETE` request
   * pass `?id=<uuid>` as a query string parameter to identify a specific resource
   * return a 200 response, and a message that states "ID: <id>" was deleted
   * (Prove that you got the id from the query string)
