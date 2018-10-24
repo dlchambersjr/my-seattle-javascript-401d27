@@ -4,14 +4,14 @@
 const url = require('url');
 const queryString = require('querystring');
 
-module.exports = (req) => {
+module.exports = (request) => {
 
-  return new Promise( (resolve,reject) => {
+  return new Promise((resolve, reject) => {
 
-    if( !(req || req.url) ) { reject('Invalid Request Object. Cannot Parse'); }
+    if (!(request || request.url)) { reject('Invalid Request Object. Cannot Parse'); }
 
     // req.url = http://localhost:3000/api/v1/notes?id=12345
-    req.parsed = url.parse(req.url);
+    request.parsed = url.parse(request.url);
     /*
         req.parsed = {
           pathname: '/api/vi/notes',
@@ -19,7 +19,7 @@ module.exports = (req) => {
         }
        */
 
-    req.query = queryString.parse(req.parsed.query);
+    request.query = queryString.parse(request.parsed.query);
     /*
         req.query = {
           id:12345,
@@ -27,26 +27,26 @@ module.exports = (req) => {
         }
        */
 
-    if(! req.method.match(/POST|PUT|PATCH/) ) {
-      resolve(req);
+    if (!request.method.match(/POST|PUT|PATCH/)) {
+      resolve(request);
     }
 
     let text = '';
 
-    req.on('data', (buffer) => {
+    request.on('data', (buffer) => {
       text += buffer.toString();
     });
 
-    req.on('end', () => {
-      try{
-        req.body = JSON.parse(text);
-        resolve(req);
+    request.on('end', () => {
+      try {
+        request.body = JSON.parse(text);
+        resolve(request);
       }
-      catch(err) { reject(err); }
+      catch (err) { reject(err); }
 
     });
 
-    req.on('err', reject);
+    request.on('err', reject);
 
   });
 
