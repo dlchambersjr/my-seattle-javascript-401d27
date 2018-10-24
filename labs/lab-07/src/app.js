@@ -26,7 +26,7 @@ const requestHandler = (request, response) => {
       if (request.method === 'GET' && request.parsed.pathname === '/') {
         setResponse('Content-Type', 'text/html', 200, 'OK');
 
-        response.write(`<!DOCTYPE html><html><head><title>cowsay</title></head><body><header><nav><ul><li><a href="/cowsay">cowsay</a></li></ul></nav></header><main><h2>This is the first GET to be added to the Lab-07 Project</h2></main></body></html>`);
+        response.write(`<!DOCTYPE html><html><head><title>cowsay</title></head><body><header><nav><ul><li><a href="/cowsay"><h2>cowsay</h2></a></li></ul></nav></header><main></main></body></html>`);
 
         response.end();
         return;
@@ -45,7 +45,8 @@ const requestHandler = (request, response) => {
 
       else if (request.method === 'POST' && request.parsed.pathname === '/api/cowsay') {
         setResponse('Content-Type', 'text/html', 200, 'OK');
-        response.write(`{"content": "${request.body.text}"}`);
+
+        response.write(`{"content": "${cowsay.say({ text: request.body.text })}"}`);
         response.end();
       }
 

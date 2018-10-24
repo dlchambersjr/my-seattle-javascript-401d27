@@ -5,7 +5,7 @@ const url = require('url');
 const queryString = require('querystring');
 
 module.exports = (request) => {
-  console.log(request);
+  console.log(request.header);
   return new Promise((resolve, reject) => {
     if (!(request || request.url)) { reject('Invalid Request Object. Cannot Parse'); }
 
@@ -17,6 +17,10 @@ module.exports = (request) => {
     request.query = queryString.parse(request.parsed.query);
     console.log('QUERY:', request.query);
 
+    // If nothing is passed to the url
+    if (request.parsed.query === null) {
+      request.query.text = `I need something to say, Use: ?text='your text here'`;
+    }
 
     // POST|PUT|PATCH
     if (!request.method.match(/POST|PUT|PATCH/)) {
@@ -29,6 +33,7 @@ module.exports = (request) => {
 
     request.on('end', () => {
       try {
+        console.log(text);
         request.body = JSON.parse(text);
         resolve(request);
       }
