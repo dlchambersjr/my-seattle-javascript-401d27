@@ -12,11 +12,20 @@ const router = require('../lib/router.js');
 
 router.get('/', (request, response) => {
   response.statusCode = 200;
-  resizeBy.statusMessage = 'OK';
+  response.statusMessage = 'OK';
   let name = request.query.name || '';
   response.write(`Hello ${name}`);
   response.end();
 });
+
+router.get('/api/v1/notes', (request, response) => {
+  response.statusCode = 200;
+  response.statusMessage = 'OK';
+  let id = request.query.id || '';
+  response.write(`ID: ${id} was requested`);
+  response.end();
+});
+
 
 /**
  * POST Route (/data)
@@ -29,6 +38,28 @@ router.post('/data', (request, response) => {
   response.statusCode = 200;
   response.statusMessage = 'OK';
   response.write(JSON.stringify(request.body));
+  response.end();
+});
+
+router.post('/api/v1/notes', (request, response) => {
+  response.statusCode = 200;
+  response.statusMessage = 'OK';
+
+  response.write(`You sent this JSON data to the server via POST: ` + JSON.stringify(request.body));
+  response.end();
+});
+
+router.put('/api/v1/notes', (request, response) => {
+  response.statusCode = 200;
+  response.statusMessage = 'OK';
+  response.write(`You sent this ID to the server via PUT: ` + JSON.stringify(request.body));
+  response.end();
+});
+
+router.delete('/api/v1/notes', (request, response) => {
+  response.statusCode = 200;
+  response.statusMessage = 'OK';
+  response.write(`ID ${JSON.stringify(request.query.id)} was DELETED: `);
   response.end();
 });
 

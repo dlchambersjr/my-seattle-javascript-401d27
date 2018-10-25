@@ -17,5 +17,8 @@
     "dotenv": "^6.1.0",
     "eslint": "^5.7.0",
     "jest": "^23.6.0"
+  },
+  "dependencies": {
+    "superagent": "^4.0.0-beta.5"
   }
 }
