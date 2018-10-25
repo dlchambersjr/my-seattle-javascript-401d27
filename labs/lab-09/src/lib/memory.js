@@ -6,6 +6,7 @@ module.exports = {
 
   // save notes they are entered
   save: (note) => {
+    console.log(`\n\n Data saved in MEMORY`);
     notesTable[note.id] = note;
 
   },

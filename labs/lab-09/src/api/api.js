@@ -49,28 +49,29 @@ router.get('/api/v1/notes', (request, response) => {
  *     echo '{"title":"Go Home","content":"foobar"}' | http post http://localhost:8080/data
  */
 
-router.post('/data', (request, response) => {
-  response.statusCode = 200;
-  response.statusMessage = 'OK';
-  response.write(JSON.stringify(request.body));
-  response.end();
-});
+// router.post('/data', (request, response) => {
+//   response.statusCode = 200;
+//   response.statusMessage = 'OK';
+//   response.write(JSON.stringify(request.body));
+//   response.end();
+// });
 
 router.post('/api/v1/notes', (request, response) => {
-
-
-
   response.statusCode = 200;
   response.statusMessage = 'OK';
 
   const note = new Note(request.body.subject, request.body.body);
 
   note.save();
+  response.write('saved');
 
-  response.write('saved')
-
-  // response.write(`You sent this JSON data to the server via POST: ` + JSON.stringify(request.body));
+  response.write(('GOT TO THE POST ROUTER'));
   response.end();
+
+
+
+  // // response.write(`You sent this JSON data to the server via POST: ` + JSON.stringify(request.body));
+  // response.end();
 });
 
 router.put('/api/v1/notes', (request, response) => {

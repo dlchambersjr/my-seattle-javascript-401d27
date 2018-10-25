@@ -2,20 +2,20 @@
 
 const uuid = require('uuid/v4');
 
-const storage = require('../lib/memory.js');
+const storage = require('../lib/data-storage.js');
 
 class Note {
-  constructor(subject = 'Enter a body', body = 'Enter some info') {
+  constructor(subject = 'Enter a body', body = 'Enter some info', owner = 'David') {
     this.id = uuid();
     this.subject = subject;
     this.body = body;
+    this.owner = owner;
   }
 
   save() {
     //save the note here
+    console.log('DATA to SAVE:', this);
     storage.save(this);
-
-    console.log('Told to Save');
   }
 
 
@@ -32,4 +32,4 @@ class Note {
 
 
 
-module.exports = {};
+module.exports = Note;
