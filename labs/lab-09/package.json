@@ -1,7 +1,7 @@
 {
   "name": "lab-08",
   "version": "1.0.0",
-  "description": "Lab-08 HTTP Routing",
+  "description": "Lab-09 HTTP Routing w/ persistence",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -9,7 +9,7 @@
   "scripts": {
     "test": "jest --verbose --watchAll",
     "lint": "eslint **/*.js",
-    "start": "index.js"
+    "start": "node index.js"
   },
   "author": "David Chambers",
   "license": "MIT",
@@ -19,6 +19,7 @@
     "jest": "^23.6.0"
   },
   "dependencies": {
-    "superagent": "^4.0.0-beta.5"
+    "superagent": "^4.0.0-beta.5",
+    "uuid": "^3.3.2"
   }
 }

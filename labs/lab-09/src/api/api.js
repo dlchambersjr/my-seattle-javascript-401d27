@@ -1,6 +1,7 @@
 'use strinct';
 
 const router = require('../lib/router.js');
+const Note = require('../models/notes.js');
 
 /**
  * GET Route (/)
@@ -10,19 +11,33 @@ const router = require('../lib/router.js');
  *     http http://localhost:8080?name=John
  */
 
-router.get('/', (request, response) => {
-  response.statusCode = 200;
-  response.statusMessage = 'OK';
-  let name = request.query.name || '';
-  response.write(`Hello ${name}`);
-  response.end();
-});
+// router.get('/', (request, response) => {
+//   response.statusCode = 200;
+//   response.statusMessage = 'OK';
+//   let name = request.query.name || '';
+//   response.write(`Hello ${name}`);
+//   response.end();
+// });
 
 router.get('/api/v1/notes', (request, response) => {
   response.statusCode = 200;
   response.statusMessage = 'OK';
-  let id = request.query.id || '';
-  response.write(`ID: ${id} was requested`);
+
+  let id = request.query.id;
+
+  if (id) {
+
+  }
+
+
+
+  response.write('Got to the GET');
+  // let notes = Note.getAll();
+
+  // response.write(JSON.stringify(notes));
+
+  // let id = request.query.id || '';
+  // response.write(`ID: ${id} was requested`);
   response.end();
 });
 
@@ -42,10 +57,19 @@ router.post('/data', (request, response) => {
 });
 
 router.post('/api/v1/notes', (request, response) => {
+
+
+
   response.statusCode = 200;
   response.statusMessage = 'OK';
 
-  response.write(`You sent this JSON data to the server via POST: ` + JSON.stringify(request.body));
+  const note = new Note(request.body.subject, request.body.body);
+
+  note.save();
+
+  response.write('saved')
+
+  // response.write(`You sent this JSON data to the server via POST: ` + JSON.stringify(request.body));
   response.end();
 });
 
