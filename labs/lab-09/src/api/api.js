@@ -26,35 +26,20 @@ router.get('/api/v1/notes', (request, response) => {
   let id = request.query.id;
 
   if (id) {
+    Note.getOne(id);
+  } else return 'NO ID PROVIDED';
 
-  }
 
 
 
-  response.write('Got to the GET');
   // let notes = Note.getAll();
 
   // response.write(JSON.stringify(notes));
 
   // let id = request.query.id || '';
-  // response.write(`ID: ${id} was requested`);
+  response.write(`ID: ${id} was requested`);
   response.end();
 });
-
-
-/**
- * POST Route (/data)
- * Accepts a JSON object and simply regurgitates it back to the browser
- * test with httpie:
- *     echo '{"title":"Go Home","content":"foobar"}' | http post http://localhost:8080/data
- */
-
-// router.post('/data', (request, response) => {
-//   response.statusCode = 200;
-//   response.statusMessage = 'OK';
-//   response.write(JSON.stringify(request.body));
-//   response.end();
-// });
 
 router.post('/api/v1/notes', (request, response) => {
   response.statusCode = 200;
@@ -63,9 +48,9 @@ router.post('/api/v1/notes', (request, response) => {
   const note = new Note(request.body.subject, request.body.body);
 
   note.save();
-  response.write('saved');
 
-  response.write(('GOT TO THE POST ROUTER'));
+  response.write((`Your note with\nSubject: ${request.body.subject}\nBody: ${request.body.body}\nOwner: ${request.body.owner}\nhas been saved.`));
+
   response.end();
 
 

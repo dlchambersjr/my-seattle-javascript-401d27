@@ -12,7 +12,8 @@ module.exports = {
   },
 
   // get a specific note
-  getOne: (id) => {
+  get: (id) => {
+    console.log(`GOT TO THE GET ONE ID REQUEST`)
     return notesTable[id];
   },
 
