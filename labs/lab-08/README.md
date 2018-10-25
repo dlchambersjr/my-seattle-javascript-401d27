@@ -11,13 +11,18 @@
 
 ### First Party
 * http
-* cowsay
+* 
 
 ### Third Party
 * dotenv
 
 ### Local Modules
-* server.js
+* index.js - entry point
+* app.js - primary server
+* router.js - used to create paths to routes
+* api.js - specific functions to handle specific routes
+* parser.js - used to separate the instructions sent via HTTP so we can process the request
+
 
 
 

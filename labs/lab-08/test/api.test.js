@@ -1,3 +1,4 @@
 'use strict';
 
-require('superagent');
+const superagent = require('superagent');
+
