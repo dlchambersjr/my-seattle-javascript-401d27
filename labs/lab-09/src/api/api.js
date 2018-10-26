@@ -3,6 +3,23 @@
 const router = require('../lib/router.js');
 const Note = require('../models/notes.js');
 
+let sendJSON = (response, requestedNote) => {
+  response.statusCode = 200;
+  response.statusMessage = 'OK';
+  response.setHeader('Content-Type', 'application/json');
+  response.write(JSON.stringify(requestedNote));
+  response.end();
+};
+
+let serverError = (response, err) => {
+  let error = { error: err };
+  response.statusCode = 500;
+  response.statusMessage = 'Server Error';
+  response.setHeader('Content-Type', 'application/json');
+  response.write(JSON.stringify(error));
+  response.end();
+};
+
 // Create a new note
 router.post('/api/v1/notes', (request, response) => {
   response.statusCode = 200;
@@ -20,21 +37,23 @@ router.post('/api/v1/notes', (request, response) => {
 
 // Retrieve a single note based on ID or all notes if know ID provided
 router.get('/api/v1/notes', (request, response) => {
-  response.statusCode = 200;
-  response.statusMessage = 'OK';
-
   let id = request.query.id;
-  let requestedNote;
+  // let requestedNote;
 
-  (id) ? requestedNote = Note.getOne(id) : requestedNote = Note.getAllId();
+  console.log('Checking for ID: ', id);
 
-  if (requestedNote !== undefined) {
-    response.write(`\n\n${JSON.stringify(requestedNote)}\n\n`);
+  if (id) {
+    Note.getOne(id)
+      .then(note => sendJSON(response, note))
+      .catch(err => serverError(response, err));
   } else {
-    response.write('Requested ID does not exist: Please enter a valid id?');
+    Note.getAllId()
+      .then(note => sendJSON(response, note))
+      .catch(err => serverError(response, err));
   }
 
-  response.end();
+  console.log(`\n\n==============\nTHIS NOTE IS AFTER THE PROMISES RETURN\nIT RETURNS FIRST\nASYNC FOR THE WIN!!!\n\n==============`);
+
 });
 
 // Update a specific note based on ID

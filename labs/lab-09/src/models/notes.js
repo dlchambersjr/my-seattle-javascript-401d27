@@ -22,7 +22,11 @@ class Note {
   static getOne(id) {
     // return a specifc note
     console.log(`ID TO GET:`, id);
-    return storage.get(id);
+    let result = storage.get(id);
+
+    console.log(`\n\n#################\n${result}\n#################\n\n`);
+
+    return result;
   }
 
   static getAllId() {
