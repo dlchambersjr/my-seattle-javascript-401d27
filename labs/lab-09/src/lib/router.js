@@ -20,7 +20,7 @@ methods.forEach((method) => {
 });
 
 router.route = (request, response) => {
-  console.log(`${request.method} ${request.url}`);
+  console.log(`\n=========================\n${request.method} ${request.url}\n=========================`);
 
   return parser(request)
     .then(request => {

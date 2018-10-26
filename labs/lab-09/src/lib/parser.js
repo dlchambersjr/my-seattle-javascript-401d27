@@ -44,7 +44,7 @@ module.exports = (request) => {
 
     request.on('end', () => {
       try {
-        console.log(text);
+        console.log('SUBMITTED INPUT:', text);
         request.body = JSON.parse(text);
         resolve(request);
       }

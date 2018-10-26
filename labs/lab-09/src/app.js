@@ -20,7 +20,7 @@ module.exports = {
         if (err) { throw err; }
         // change the isRunning flag
         isRunning = true;
-        console.log(`HTTP ROUTING server is up on PORT: ${port}`);
+        console.log(`HTTP ROUTING-PART 2 server is up on PORT: ${port}`);
       });
     }
     else {
