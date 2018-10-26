@@ -32,11 +32,15 @@ class Note {
     return storage.getAll();
   }
 
-  static updateOne(TBD) {
-    // update a specific note
-    console.log(`UPDATING NOTE with ????`);
-    return storage.update(this);
-  }
+  //WORKING ON THIS FOR STRETCH GOAL
+  // ###############################
+  // static updateOne(TBD) {
+  //   // update a specific note
+  //   console.log(`UPDATING NOTE with ????`);
+  //   return storage.update(this);
+  // }
+  // ###############################
+
 
   static deleteOne(id) {
     // delete a specifc note
