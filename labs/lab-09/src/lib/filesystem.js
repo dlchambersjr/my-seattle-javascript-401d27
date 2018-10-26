@@ -87,7 +87,7 @@ storage.delete = (id) => {
     let file = `${notesDirectory}/${id}.json`;
     if (file) {
       fs.unlink(file, (err) => {
-        resolve(`${id} ID:${id}`);
+        resolve(`DELETED ID:${id}`);
       });
     }
     else reject(`${id} not found`);
