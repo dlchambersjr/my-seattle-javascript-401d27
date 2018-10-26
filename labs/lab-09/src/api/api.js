@@ -3,49 +3,12 @@
 const router = require('../lib/router.js');
 const Note = require('../models/notes.js');
 
-/**
- * GET Route (/)
- * Accepts an optional "name" query string parameter and says Hello
- * test with httpie:
- *     http http://localhost:8080
- *     http http://localhost:8080?name=John
- */
-
-// router.get('/', (request, response) => {
-//   response.statusCode = 200;
-//   response.statusMessage = 'OK';
-//   let name = request.query.name || '';
-//   response.write(`Hello ${name}`);
-//   response.end();
-// });
-
-router.get('/api/v1/notes', (request, response) => {
-  response.statusCode = 200;
-  response.statusMessage = 'OK';
-
-  let id = request.query.id;
-
-  if (id) {
-    Note.getOne(id);
-  } else return 'NO ID PROVIDED';
-
-
-
-
-  // let notes = Note.getAll();
-
-  // response.write(JSON.stringify(notes));
-
-  // let id = request.query.id || '';
-  response.write(`ID: ${id} was requested`);
-  response.end();
-});
-
+// Create a new note
 router.post('/api/v1/notes', (request, response) => {
   response.statusCode = 200;
   response.statusMessage = 'OK';
 
-  const note = new Note(request.body.subject, request.body.body);
+  const note = new Note(request.body.subject, request.body.body, request.body.owner);
 
   note.save();
 
@@ -53,12 +16,28 @@ router.post('/api/v1/notes', (request, response) => {
 
   response.end();
 
-
-
-  // // response.write(`You sent this JSON data to the server via POST: ` + JSON.stringify(request.body));
-  // response.end();
 });
 
+// Retrieve a single note based on ID or all notes if know ID provided
+router.get('/api/v1/notes', (request, response) => {
+  response.statusCode = 200;
+  response.statusMessage = 'OK';
+
+  let id = request.query.id;
+  let requestedNote;
+
+  (id) ? requestedNote = Note.getOne(id) : requestedNote = Note.getAllId();
+
+  if (requestedNote !== undefined) {
+    response.write(`\n\n${JSON.stringify(requestedNote)}\n\n`);
+  } else {
+    response.write('Requested ID does not exist: Please enter a valid id?');
+  }
+
+  response.end();
+});
+
+// Update a specific note based on ID
 router.put('/api/v1/notes', (request, response) => {
   response.statusCode = 200;
   response.statusMessage = 'OK';
@@ -66,10 +45,17 @@ router.put('/api/v1/notes', (request, response) => {
   response.end();
 });
 
+// Delete a specific note based on ID
 router.delete('/api/v1/notes', (request, response) => {
-  response.statusCode = 200;
-  response.statusMessage = 'OK';
-  response.write(`ID ${JSON.stringify(request.query.id)} was DELETED: `);
+  response.statusCode = 204;
+  response.statusMessage = '';
+
+  let id = request.query.id;
+  Note.deleteOne(id);
+
+  response.write('REACHED THE DELETE FUNCTION');
+
+  // response.write(`ID ${JSON.stringify(request.query.id)} was DELETED: `);
   response.end();
 });
 
