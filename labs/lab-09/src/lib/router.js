@@ -11,7 +11,7 @@ router.routes = {};
 const methods = ['GET', 'PUT', 'PATCH', 'POST', 'DELETE'];
 
 methods.forEach((method) => {
-  // create a new "node" in the routing table
+  // create a new "http method" in the routing table
   router.routes[method] = {};
 
   router[method.toLowerCase()] = function (path, callback) {
