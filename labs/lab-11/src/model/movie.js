@@ -1,28 +1,25 @@
-'use strict';
-
-// const uuid = require('uuid/v4');
+// Load id generator
 import uuid from 'uuid/v4';
 
-// const storage = require('../lib/data-storage.js');
+// get the storage functions
 import storage from '../lib/data-storage.js';
 
 class Movie {
-  constructor(title = 'Enter title', genere = 'Enter some info', owner = 'David') {
+  constructor(title = 'Enter title', genre = 'Enter a genre') {
     this.id = uuid();
     this.createdDate = Date();
-    this.titel = title;
+    this.title = title;
     this.genre = genre;
-    this.owner = owner;
   }
 
   save() {
-    //save the note here
+    //save the movie here
     console.log('DATA to SAVE:', this);
     storage.save(this);
   }
 
   static getOne(id) {
-    // return a specifc note
+    // return a specifc movie
     console.log(`ID TO GET:`, id);
     let result = storage.get(id);
 
@@ -32,8 +29,8 @@ class Movie {
   }
 
   static getAllId() {
-    //Get all the notes
-    console.log(`RETRIEVING ALL NOTES:`);
+    //Get all the movies
+    console.log(`RETRIEVING ALL MOVIES:`);
 
     return storage.getAll();
   }
@@ -41,16 +38,16 @@ class Movie {
   //WORKING ON THIS FOR STRETCH GOAL
   // ###############################
   // static updateOne(TBD) {
-  //   // update a specific note
-  //   console.log(`UPDATING NOTE with ????`);
+  //   // update a specific movie
+  //   console.log(`UPDATING movie with ????`);
   //   return storage.update(this);
   // }
   // ###############################
 
 
   static deleteOne(id) {
-    // delete a specifc note
-    console.log(`DELETING NOTE: ${id}`);
+    // delete a specifc movie
+    console.log(`DELETING MOVIE: ${id}`);
     return storage.delete(id);
   }
 

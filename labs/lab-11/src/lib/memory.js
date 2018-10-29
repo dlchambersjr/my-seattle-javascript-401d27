@@ -1,11 +1,9 @@
-'use strict';
-
 let movieCollection = {};
 
 module.exports = {
 
   // save movies from POST
-  save: (note) => {
+  save: (movie) => {
     console.log(`\n\n Data saved in MEMORY`);
     movieCollection[movie.id] = movie;
 
