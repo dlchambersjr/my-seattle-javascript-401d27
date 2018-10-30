@@ -7,9 +7,9 @@ describe('API/ROUTER POST Test', () => {
 
     request(app)
       .post('/api/v1/movies')
-      .send({ foo: 'ping' })
+      .send({ title: 'Star Wars', genre: 'Sci-Fi' })
       .then((response => {
-        expect(response.body).toEqual({ pong: 'pong for POST' });
+        expect(response.body).toEqual();
         done();
       }));
 
@@ -23,7 +23,7 @@ describe('API/ROUTER GET Test', () => {
   it('should retrieve a movie', (done) => {
 
     request(app)
-      .post('/api/v1/movies')
+      .get('/api/v1/movies')
       .send({ foo: 'ping' })
       .then((response => {
         expect(response.body).toEqual({ pong: 'pong for GET' });
