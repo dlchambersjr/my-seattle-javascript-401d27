@@ -1,7 +1,7 @@
 import express from 'express';
 
 import Movie from '../model/movie';
-import { request } from 'https';
+// import { request } from 'https';
 
 const router = new express.Router();
 
