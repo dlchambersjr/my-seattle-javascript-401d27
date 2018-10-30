@@ -24,6 +24,7 @@ let serverError = (res, err) => {
 };
 
 let routeError = (res, req, code, message) => {
+  console.log(code, message);
 
   res.statusCode = code;
   res.statusMessage = message;
@@ -42,14 +43,8 @@ router.get('/api/v1/movies', (req, res) => {
   if (id) {
     Movie.getOne(id)
       .then(movie => sendJSON(res, movie))
-      .catch(err => serverError(res, err));
+      .catch(err => routeError(req, res, err, 'NOT FOUND'));
   } else routeError(req, res, 404, 'not found');
-
-  // else {
-  //   Movie.getAllId()
-  //     .then(movie => sendJSON(res, movie))
-  //     .catch(err => serverError(res, err));
-  // }
 
   console.log(`\n\n==============\nTHIS MOVIE IS AFTER THE PROMISES RETURN\nIT RETURNS FIRST\nASYNC FOR THE WIN!!!\n\n==============`);
 
@@ -61,7 +56,7 @@ router.post('/api/v1/movies', (req, res) => {
   res.statusCode = 200;
   res.statusMessage = 'OK';
 
-  if (request.body.title) {
+  if (req.body.title) {
     const movie = new Movie(req.body.title, req.body.genre);
     movie.save();
     res.write((`Your movie with\nTitle: ${req.body.title}\nGenre: ${req.body.genre}\nhas been saved.`));

@@ -7,7 +7,9 @@
     "test": "test"
   },
   "scripts": {
-    "test": "jest --verbose --watchAll"
+    "test": "jest --verbose --watchAll",
+    "lint": "eslint **/*.js",
+    "start": "node index.js"
   },
   "author": "David Chambers",
   "license": "MIT",

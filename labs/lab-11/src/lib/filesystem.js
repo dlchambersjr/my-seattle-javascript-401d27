@@ -42,7 +42,7 @@ storage.get = (id) => {
         console.log('\n\nAFTER JSON', content);
         resolve(content);
       }
-      else reject(`${id} not found`);
+      else reject(404);
     });
   });
 };
