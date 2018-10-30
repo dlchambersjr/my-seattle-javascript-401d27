@@ -1,0 +1,29 @@
+{
+  "name": "lab-11",
+  "version": "1.0.0",
+  "description": "Lab-11 Express and Babel",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest --verbose --watchAll",
+    "lint": "eslint **/*.js",
+    "start": "node index.js"
+  },
+  "author": "David Chambers",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^5.8.0",
+    "jest": "^23.6.0",
+    "supertest": "^3.3.0"
+  },
+  "dependencies": {
+    "babel-env": "^2.4.1",
+    "babel-eslint": "^10.0.1",
+    "babel-register": "^6.26.0",
+    "dotenv": "^6.1.0",
+    "express": "^4.16.4",
+    "uuid": "^3.3.2"
+  }
+}
