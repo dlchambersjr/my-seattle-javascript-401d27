@@ -19,35 +19,27 @@ class Movie {
   }
 
   static getOne(id) {
-    // return a specifc movie
-    console.log(`ID TO GET:`, id);
+    // return a specifc movie 
+    console.log(`REACHED - STATIC getOne:\n`);
     let result = storage.get(id);
-
-    console.log(`\n\n#################\n${result}\n#################\n\n`);
-
     return result;
   }
 
   static getAllId() {
     //Get all the movies
-    console.log(`RETRIEVING ALL MOVIES:`);
-
+    console.log(`REACHED - STATIC getAllId:\n`);
     return storage.getAll();
   }
 
-  //WORKING ON THIS FOR STRETCH GOAL
-  // ###############################
-  // static updateOne(TBD) {
-  //   // update a specific movie
-  //   console.log(`UPDATING movie with ????`);
-  //   return storage.update(this);
-  // }
-  // ###############################
-
+  static updateOne(id, title, genre) {
+    // update a specifc movie
+    console.log(`REACHED - STATIC updateOne:\n`);
+    return storage.update(id, title, genre);
+  }
 
   static deleteOne(id) {
     // delete a specifc movie
-    console.log(`DELETING MOVIE: ${id}`);
+    console.log(`REACHED - STATIC deleteOne:\n`);
     return storage.delete(id);
   }
 

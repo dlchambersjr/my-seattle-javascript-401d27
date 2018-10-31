@@ -6,10 +6,13 @@ const dataDirectory = `${__dirname}/../data`;
 
 // Get a list of files on the system
 let readFilesPromise = function (filename) {
+  console.log('READING FROM DRIVE');
   return new Promise(function (resolve, reject) {
     fs.readFile(filename, function (err, movie) {
-      if (err)
+      if (err) {
+        console.error(err);
         reject(err);
+      }
       else
         resolve(movie);
     });
@@ -25,7 +28,7 @@ storage.save = (movie) => {
     console.log(file);
     let text = JSON.stringify(movie);
     fs.writeFile(file, text, (err) => {
-      if (err) { reject(err); }
+      if (err) reject(err);
       resolve(movie);
     });
   });
@@ -33,16 +36,15 @@ storage.save = (movie) => {
 
 // GET a specific note
 storage.get = (id) => {
+  console.log('FILESYTEM GET ID:', id);
   return new Promise((resolve, reject) => {
     let file = `${dataDirectory}/${id}.json`;
     fs.readFile(file, (err, movie) => {
       if (movie) {
-        console.log('\n\nBEFORE JSON', movie.toString());
         let content = JSON.parse(movie.toString());
-        console.log('\n\nAFTER JSON', content);
         resolve(content);
       }
-      else reject(404);
+      else { reject(404); }
     });
   });
 };
@@ -75,10 +77,25 @@ storage.getAll = () => {
   });
 };
 
-// // Update the contents of a note with PUT
-// put: (id, contents) => {
+// Update the contents of a note with PUT
+storage.update = (id, title, genre) => {
+  console.log('FILESYTEM PUT ID:', id);
+  console.log('FILESYTEM PUT TITLE:', title);
+  console.log('FILESYTEM PUT GENRE:', genre);
+  return new Promise((resolve, reject) => {
+    let file = `${dataDirectory}/${id}.json`;
+    fs.readFile(file, (err, movie) => {
+      if (movie) {
+        console.log(movie);
+        let content = JSON.parse(movie.toString());
+        console.log(content);
+        resolve(content);
+      }
+      else { reject(404); }
+    });
+  });
 
-// }
+}
 
 storage.delete = (id) => {
   return new Promise((resolve, reject) => {
