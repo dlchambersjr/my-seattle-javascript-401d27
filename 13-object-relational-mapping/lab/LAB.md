@@ -12,6 +12,9 @@ Follow the instructions in the "Lab Submission Instructions" document in the cou
 
 ## Requirements
 
+#### Setup
+* .env file with PORT and MONGODB_URI values
+
 #### Feature Tasks
 * create an HTTP Server using `express`
 * create a resource **model** of your choice that uses `mongoose.Schema` and `mongoose.model`
@@ -38,7 +41,7 @@ Follow the instructions in the "Lab Submission Instructions" document in the cou
 ### Tests
 * create a test that will ensure that your API returns a status code of 404 for routes that have not been registered
 * create a series of tests to ensure that your `/api/resource-name` endpoint responds as described for each condition below:
-  * `GET` - test 200, returns a resource with a valid body
+ * `GET` - test 200, returns a resource with a valid body
  * `GET` - test 404, respond with 'not found' for valid requests made with an id that was not found
  * `PUT` - test 200, returns a resource with an updated body
  * `PUT` - test 400, responds with 'bad request' if no request body was provided
