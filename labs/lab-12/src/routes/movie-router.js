@@ -7,8 +7,8 @@ const router = new express.Router();
 
 //helper functions for routes
 let sendJSON = (res, requestedMovie) => {
-  res.statusCode = 200;
-  res.statusMessage = 'OK';
+  res.status = 200;
+  res.message = 'OK';
   res.setHeader('Content-Type', 'application/json');
   res.write(JSON.stringify(requestedMovie));
   res.end();
@@ -26,13 +26,22 @@ let serverError = (res, err) => {
 let routeError = (res, req, code, message) => {
   console.log(code, message);
 
-  res.statusCode = code;
-  res.statusMessage = message;
+  res.status = code;
+  res.message = message;
   res.write(`${code} - ${message}`);
   res.end();
 };
 
 //route instructions for each HTTP METHOD
+
+router.get('/ping', (req, res) => {
+  res.statusCode = 200;
+  res.statusMessage = 'PING PING PING';
+  res.send('found the /ping');
+
+});
+
+
 
 //get a movie title
 router.get('/api/v1/movies', (req, res) => {
@@ -81,9 +90,10 @@ router.delete('/api/v1/movies', (req, res) => {
 });
 
 router.use((req, res) => {
+  console.log('\n\n=====================\n\n', res.statusCode);
   res.statusCode = 404;
   res.statusMessage = `NOT FOUND`;
-  res.write(`404 - ${req.query.url} NOT FOUND`);
+  res.write(`404 - ${req.path} NOT FOUND`);
   res.end();
 
 

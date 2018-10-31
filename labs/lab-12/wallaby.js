@@ -1,8 +1,8 @@
-module.exports = function () {
+module.exports = function (wallaby) {
 
   return {
 
-    files: ['src/lib/**/*.js'],
+    files: ['src/**/*.js'],
 
     tests: ['test/**/*.test.js'],
 
@@ -21,6 +21,22 @@ module.exports = function () {
     },
 
     testFramework: 'jest',
+
+    compilers: {
+      'src/**/*.js': wallaby.compilers.babel({
+        'presets': [
+          'env',
+          'react',
+          'stage-0',
+        ],
+        'plugins': [
+          'transform-class-properties',
+          'transform-decorators',
+          'transform-react-constant-elements',
+          'transform-react-inline-elements',
+        ],
+      }),
+    },
 
   };
 

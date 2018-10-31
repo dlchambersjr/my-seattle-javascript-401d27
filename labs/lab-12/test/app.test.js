@@ -1,7 +1,28 @@
-import request from 'supertest';
+require('babel-register');
+
+const request = require('supertest');
 const { app } = require('../src/app.js');
 
-describe('Test for invalid endpoints', () => {
+
+describe('basic path test', () => {
+
+  it('should return status code 404 for unregistered routes.', (done) => {
+
+    request(app)
+      .get('/ping')
+
+      .then((response => {
+        fail(response);
+
+        expect(response.status).toBe(200);
+        expect(response.statusMessage).toBe('PING PING PING');
+        done();
+      }));
+  });
+
+});
+
+xdescribe('Test for invalid endpoints', () => {
 
   it('should return status code 404 for unregistered routes.', (done) => {
 
@@ -10,6 +31,7 @@ describe('Test for invalid endpoints', () => {
       .send({ title: 'Star Wars', genre: 'Sci-Fi' })
       .then((response => {
         expect(response.status).toBe(404);
+        expect(response.statusMessage).toBe('NOT FOUND');
         done();
       }));
 
@@ -17,16 +39,16 @@ describe('Test for invalid endpoints', () => {
 
 });
 
-describe('Test for valid routes and INVALID requests', () => {
+xdescribe('Test for valid routes and INVALID requests', () => {
 
-  it(`should respond 404-Not Found when it can't find the id for a GET`, (done) => {
+  xit(`should respond 404-Not Found when it can't find the id for a GET`, (done) => {
 
     request(app)
       .get('/api/v1/movies')
       .send({ id: 'ping' })
       .then((response => {
         expect(response.status).toEqual(404);
-        expect(response.message).toBe('NOT FOUND');
+        expect(response.message).toBe('NOT FOUN');
         done();
       }));
 
