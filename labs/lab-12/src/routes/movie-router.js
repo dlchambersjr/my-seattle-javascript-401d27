@@ -53,8 +53,8 @@ router.post('/api/v1/movies', (req, res) => {
 router.put('/api/v1/movies', (req, res) => {
 
   let id = req.query.id;
-  let title = req.query.title;
-  let genre = req.query.location;
+  let title = req.body.title;
+  let genre = req.body.genre;
 
   Movie.updateOne(id, title, genre)
     .then(movie => sendJSON(res, movie, 200, 'OK'))
