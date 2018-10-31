@@ -21,7 +21,6 @@ let returnStatus = (req, res, code, message, result) => {
   res.send(result);
 };
 
-
 //get a movie title
 router.get('/api/v1/movies', (req, res) => {
   let id = req.query.id;
