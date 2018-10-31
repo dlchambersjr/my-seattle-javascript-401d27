@@ -6,56 +6,43 @@ import Movie from '../model/movie';
 const router = new express.Router();
 
 //helper functions for routes
-let sendJSON = (res, requestedMovie) => {
-  res.status = 200;
-  res.message = 'OK';
+let sendJSON = (res, movieInfo, code, message) => {
+  res.statusCode = code;
+  res.statusMessage = message;
   res.setHeader('Content-Type', 'application/json');
-  res.write(JSON.stringify(requestedMovie));
+  res.write(JSON.stringify(movieInfo));
   res.end();
 };
 
-let serverError = (res, err) => {
-  let error = { error: err };
-  res.statusCode = 500;
-  res.statusMessage = 'Server Error';
-  res.setHeader('Content-Type', 'application/json');
-  res.write(JSON.stringify(error));
-  res.end();
+// let serverError = (res, err) => {
+//   let error = { error: err };
+//   res.statusCode = 500;
+//   res.statusMessage = 'Server Error';
+//   res.setHeader('Content-Type', 'application/json');
+//   res.write(JSON.stringify(error));
+//   res.end();
+// };
+
+
+// Helper function to return the status of HTTP Methods
+let returnStatus = (req, res, code, message, result) => {
+  res.statusCode = code;
+  res.statusMessage = message;
+  res.send(result);
 };
-
-let routeError = (res, req, code, message) => {
-  console.log(code, message);
-
-  res.status = code;
-  res.message = message;
-  res.write(`${code} - ${message}`);
-  res.end();
-};
-
-//route instructions for each HTTP METHOD
-
-router.get('/ping', (req, res) => {
-  res.statusCode = 200;
-  res.statusMessage = 'PING PING PING';
-  res.send('found the /ping');
-
-});
-
 
 
 //get a movie title
 router.get('/api/v1/movies', (req, res) => {
   let id = req.query.id;
 
-  console.log('Checking for ID: ', id);
+  console.log('GETting ID: ', id, '\n');
 
   if (id) {
     Movie.getOne(id)
-      .then(movie => sendJSON(res, movie))
-      .catch(err => routeError(req, res, err, 'NOT FOUND'));
-  } else routeError(req, res, 404, 'not found');
-
-  console.log(`\n\n==============\nTHIS MOVIE IS AFTER THE PROMISES RETURN\nIT RETURNS FIRST\nASYNC FOR THE WIN!!!\n\n==============`);
+      .then(movie => sendJSON(res, movie, 200, 'OK'))
+      .catch(err => returnStatus(req, res, err, 'NOT FOUND', 'NOT FOUND'));
+  } else returnStatus(req, res, 400, 'Bad Request', 'Bad Request');
 
 });
 
@@ -65,13 +52,11 @@ router.post('/api/v1/movies', (req, res) => {
   res.statusCode = 200;
   res.statusMessage = 'OK';
 
-  if (req.body.title) {
+  if (req.body.title && req.body.genre) {
     const movie = new Movie(req.body.title, req.body.genre);
     movie.save();
-    res.write((`Your movie with\nTitle: ${req.body.title}\nGenre: ${req.body.genre}\nhas been saved.`));
-    res.end();
-  } else routeError(req, res, 400, 'bad request');
-
+    sendJSON(res, movie, 200, 'OK');
+  } else returnStatus(req, res, 400, 'Bad Request', 'Bad Request');
 
 });
 
@@ -83,20 +68,12 @@ router.delete('/api/v1/movies', (req, res) => {
   let id = req.query.id;
   Movie.deleteOne(id);
 
-  res.write('REACHED THE DELETE FUNCTION');
-  res.end();
-
+  returnStatus(req, res, 204, '', '');
 
 });
 
 router.use((req, res) => {
-  console.log('\n\n=====================\n\n', res.statusCode);
-  res.statusCode = 404;
-  res.statusMessage = `NOT FOUND`;
-  res.write(`404 - ${req.path} NOT FOUND`);
-  res.end();
-
-
+  returnStatus(req, res, 404, 'NOT FOUND', 'NOT FOUND');
 });
 
 
