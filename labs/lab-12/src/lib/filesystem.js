@@ -77,10 +77,25 @@ storage.getAll = () => {
   });
 };
 
-// // Update the contents of a note with PUT
-// put: (id, contents) => {
+// Update the contents of a note with PUT
+storage.update = (id, title, genre) => {
+  console.log('FILESYTEM PUT ID:', id);
+  console.log('FILESYTEM PUT TITLE:', title);
+  console.log('FILESYTEM PUT GENRE:', genre);
+  return new Promise((resolve, reject) => {
+    let file = `${dataDirectory}/${id}.json`;
+    fs.readFile(file, (err, movie) => {
+      if (movie) {
+        console.log(movie);
+        let content = JSON.parse(movie.toString());
+        console.log(content);
+        resolve(content);
+      }
+      else { reject(404); }
+    });
+  });
 
-// }
+}
 
 storage.delete = (id) => {
   return new Promise((resolve, reject) => {

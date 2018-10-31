@@ -31,6 +31,11 @@ class Movie {
     return storage.getAll();
   }
 
+  static updateOne(id, title, genre) {
+    // update a specifc movie
+    console.log(`REACHED - STATIC updateOne:\n`);
+    return storage.update(id, title, genre);
+  }
 
   static deleteOne(id) {
     // delete a specifc movie

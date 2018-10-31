@@ -14,16 +14,6 @@ let sendJSON = (res, movieInfo, code, message) => {
   res.end();
 };
 
-// let serverError = (res, err) => {
-//   let error = { error: err };
-//   res.statusCode = 500;
-//   res.statusMessage = 'Server Error';
-//   res.setHeader('Content-Type', 'application/json');
-//   res.write(JSON.stringify(error));
-//   res.end();
-// };
-
-
 // Helper function to return the status of HTTP Methods
 let returnStatus = (req, res, code, message, result) => {
   res.statusCode = code;
@@ -58,6 +48,18 @@ router.post('/api/v1/movies', (req, res) => {
     sendJSON(res, movie, 200, 'OK');
   } else returnStatus(req, res, 400, 'Bad Request', 'Bad Request');
 
+});
+
+//update a movie title
+router.put('/api/v1/movies', (req, res) => {
+
+  let id = req.query.id;
+  let title = req.query.title;
+  let genre = req.query.location;
+
+  Movie.updateOne(id, title, genre)
+    .then(movie => sendJSON(res, movie, 200, 'OK'))
+    .catch(err => returnStatus(req, res, err, 'NOT FOUND', 'NOT FOUND'));
 });
 
 //delete a movie title
