@@ -50,7 +50,7 @@ router.put('api/v1/books/:id', (req, res, next) => {
   const id = req.params.id;
   const body = req.body;
 
-  books.updateOne(id, body)
+  books.findByIdAndUpdate(id, body) //use {new:true}
     .then(result => sendJSON(result, res))
     .catch(next);
 });
