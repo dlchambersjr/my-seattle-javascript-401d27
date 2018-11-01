@@ -14,24 +14,24 @@ let sendJSON = (data, response) => {
 };
 
 // GET ROUTE(S)
+//returns all documents if no id provided
 router.get('/api/v1/books', (req, res, next) => {
-  books.getAll()
+  books.find()
     .then(result => sendJSON(result, res))
     .catch = (next);
 });
 
+//returns a specific id
 router.get('/api/v1/books/:id', (req, res, next) => {
+  console.log(req.params);
   const id = req.params.id;
-
+  console.log(id);
   if (id) {
-    books.getOne(id)
-      .then(book => sendJSON(res, res))
+    books.findById(id)
+      .then(book => sendJSON(book, res))
       .catch(next);
   } else next;
 
-  books.getAll()
-    .then(result => sendJSON(result, res))
-    .catch = (next);
 });
 
 // POST ROUTE
@@ -39,6 +39,7 @@ router.post('/api/v1/books', (req, res, next) => {
   const body = req.body;
   console.log(JSON.stringify(body));
 
+  //FIXME: should I use .insertOne({}) instead
   books.create(body)
     .then(result => sendJSON(result, res))
     .catch(next);

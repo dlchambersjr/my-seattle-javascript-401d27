@@ -17,13 +17,13 @@ afterEach(async () => {
 
 describe('API SERVER', () => {
 
-  // FIXME:
-  xit('should respond with a 500 on an invalid model/path', async () => {
+  // FIXME: NOT SURE OW TO GENERATE... TYPO
+  it('should respond with a 500 on an invalid model', async () => {
 
     const response =
-      await mockRequest.get('/nothere');
+      await mockRequest.get();
 
-    expect(response.status).toBe(0);
+    expect(response.status).toBe(500);
 
   });
 
@@ -50,14 +50,13 @@ describe('API SERVER', () => {
       await mockRequest
         .post(url)
         .send(newBook);
-
     expect(response.status).toBe(200);
     expect(response.body.title).toEqual(newBook.title);
 
   });
 
-
-  it('following a post, should find a single record', async () => {
+  //TODO: START HERE TO CONTINUE WORKING
+  xit('following a post, should find a single record', async () => {
 
     const postResponse = await mockRequest.post(url).send(newBook);
 
@@ -65,7 +64,10 @@ describe('API SERVER', () => {
 
     const getResponse = await mockRequest.get(`/api/v1/books/${bookId}`);
 
+    console.log(getResponse.body);
+
     const book = getResponse.body[0];
+
 
     expect(book.title).toEqual(newBook.title);
 

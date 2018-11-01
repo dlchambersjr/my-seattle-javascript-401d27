@@ -7,6 +7,8 @@ const bookSchema = new Schema({
   genre: String,
 });
 
+//Schema methods
+
 
 
 // Books Model
