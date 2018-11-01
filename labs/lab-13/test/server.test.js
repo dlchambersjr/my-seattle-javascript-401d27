@@ -17,7 +17,8 @@ afterEach(async () => {
 
 describe('API SERVER', () => {
 
-  it('should respond with a 500 on an invalid model/path', async () => {
+  // FIXME:
+  xit('should respond with a 500 on an invalid model/path', async () => {
 
     const response =
       await mockRequest.get('/nothere');
@@ -26,16 +27,16 @@ describe('API SERVER', () => {
 
   });
 
-  xit('should respond with a 404 on an invalid method', async () => {
+  it('should respond with a 404 on an invalid method', async () => {
 
     const response =
       await mockRequest.get('/api/v1/badMethod/12');
 
-    expect(response.status).toBe(0);
+    expect(response.status).toBe(404);
 
   });
 
-  xit('should respond properly on a get request to a valid model', async () => {
+  it('should respond properly on a get request to a valid model', async () => {
 
     const response = await mockRequest.get(url);
 
@@ -51,7 +52,7 @@ describe('API SERVER', () => {
         .send(newBook);
 
     expect(response.status).toBe(200);
-    expect(response.body.title).toEqual(newBook.title);
+    expect(response.body.title).toEqual(newBook.titles);
 
   });
 

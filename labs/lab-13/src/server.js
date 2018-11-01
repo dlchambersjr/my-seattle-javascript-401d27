@@ -3,7 +3,10 @@ import express from 'express';
 import cors from 'cors';
 
 //Load locally created middleware
-import apiRouter from './api/apiRouter.js'
+import apiRouter from './api/apiRouter.js';
+import notFound from './middleware/404.js';
+import errorHandler from './middleware/error.js';
+
 
 // prepare express
 const app = express();
@@ -18,8 +21,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(apiRouter);
 
 //Catchalls
-// app.use(notFound);
-// app.use(errorHandler);
+app.use(notFound);
+app.use(errorHandler);
 
 let isRunning = false;
 
