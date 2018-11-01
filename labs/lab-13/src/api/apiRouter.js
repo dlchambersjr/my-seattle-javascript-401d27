@@ -61,7 +61,7 @@ router.put('api/v1/books/:id', (req, res, next) => {
 // DELETE ROUTE
 router.delete('api/v1/books/:id', (req, res, next) => {
   const id = req.params.id;
-  books.deleteOne(id)
+  books.findByIdAndDelete(id)
     .then(result => sendJSON(result, res))
     .catch(next);
 
