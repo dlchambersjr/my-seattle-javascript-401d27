@@ -3,7 +3,7 @@ import express from 'express';
 import cors from 'cors';
 
 //Load locally created middleware
-
+import apiRouter from './api/apiRouter.js'
 
 // prepare express
 const app = express();
