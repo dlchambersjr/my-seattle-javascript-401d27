@@ -7,6 +7,10 @@ const bookSchema = new Schema({
   genre: String,
 });
 
+//Schema methods
+
+
+
 // Books Model
 const Book = mongoose.model('Books', bookSchema);
 
