@@ -13,30 +13,58 @@ let sendJSON = (data, response) => {
   response.end();
 };
 
-
-
 // GET ROUTE(S)
+router.get('/api/v1/books', (req, res, next) => {
+  books.getAll()
+    .then(result => sendJSON(result, res))
+    .catch = (next);
+});
 
-router.get('/api/v1/books', (req, res) => {
-  res.send('WHOOP');
+router.get('/api/v1/books/:id', (req, res, next) => {
+  const id = req.params.id;
+
+  if (id) {
+    books.getOne(id)
+      .then(book => sendJSON(res, res))
+      .catch(next);
+  } else next;
+
+  books.getAll()
+    .then(result => sendJSON(result, res))
+    .catch = (next);
 });
 
 // POST ROUTE
-router.post('api/v1/books', (req, res) => {
+router.post('/api/v1/books', (req, res, next) => {
   const body = req.body;
+  console.log(JSON.stringify(body));
+
   books.create(body)
-    .then(result => sendJSON(result, response))
+    .then(result => sendJSON(result, res))
     .catch(next);
 });
 
 // PUT ROUTE
-router.put('api/v1/books', (req, res) => { });
+router.put('api/v1/books/:id', (req, res, next) => {
+  const id = req.params.id;
+  const body = req.body;
 
+  books.updateOne(id, body)
+    .then(result => sendJSON(result, res))
+    .catch(next);
+});
 
+// FIXME:
 // PATCH ROUTE
 
 // DELETE ROUTE
-router.delete('api/v1/books', (req, res) => { });
+router.delete('api/v1/books/:id', (req, res, next) => {
+  const id = req.params.id;
+  books.deleteOne(id)
+    .then(result => sendJSON(result, res))
+    .catch(next);
+
+});
 
 
 

@@ -44,30 +44,30 @@ describe('API SERVER', () => {
 
   });
 
-  xit('should be able to post to /api/v1/notes', async () => {
+  it('should be able to post to /api/v1/books', async () => {
 
     const response =
       await mockRequest
-        .post('/api/v1/notes')
+        .post(url)
         .send(newBook);
 
     expect(response.status).toBe(200);
-    expect(response.body.title).toEqual(newBook.titles);
+    expect(response.body.title).toEqual(newBook.title);
 
   });
 
 
-  xit('following a post, should find a single record', async () => {
+  it('following a post, should find a single record', async () => {
 
     const postResponse = await mockRequest.post(url).send(newBook);
 
-    const noteId = postResponse.body._id;
+    const bookId = postResponse.body._id;
 
-    const getResponse = await mockRequest.get(`/api/v1/notes/${noteId}`);
+    const getResponse = await mockRequest.get(`/api/v1/books/${bookId}`);
 
-    const note = getResponse.body[0];
+    const book = getResponse.body[0];
 
-    expect(note.title).toEqual(newBook.title);
+    expect(book.title).toEqual(newBook.title);
 
   });
 
@@ -75,11 +75,11 @@ describe('API SERVER', () => {
 
     const obj = { title: 'test', text: 'foo' };
 
-    await mockRequest.post('/api/v1/notes').send(obj);
+    await mockRequest.post('/api/v1/books').send(obj);
 
-    await mockRequest.post('/api/v1/notes').send(obj);
+    await mockRequest.post('/api/v1/books').send(obj);
 
-    const { body } = await mockRequest.get('/api/v1/notes');
+    const { body } = await mockRequest.get('/api/v1/books');
 
     expect(body.count).toBe(2);
 
@@ -87,7 +87,7 @@ describe('API SERVER', () => {
 
   xit('a get should find zero records still', async () => {
 
-    const { body } = await mockRequest.get('/api/v1/notes');
+    const { body } = await mockRequest.get('/api/v1/books');
 
     expect(body.count).toBe(0);
 
