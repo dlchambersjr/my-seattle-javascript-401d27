@@ -17,20 +17,10 @@ afterEach(async () => {
 
 describe('API SERVER', () => {
 
-  // FIXME: NOT SURE OW TO GENERATE... TYPO
-  it('should respond with a 500 on an invalid model', async () => {
+  it('should respond with a 404 on an invalid route', async () => {
 
     const response =
-      await mockRequest.get();
-
-    expect(response.status).toBe(500);
-
-  });
-
-  it('should respond with a 404 on an invalid method', async () => {
-
-    const response =
-      await mockRequest.get('/api/v1/badMethod/12');
+      await mockRequest.get('/invalidRoute');
 
     expect(response.status).toBe(404);
 
@@ -55,8 +45,7 @@ describe('API SERVER', () => {
 
   });
 
-  //TODO: START HERE TO CONTINUE WORKING
-  xit('following a post, should find a single record', async () => {
+  it('following a post, should find a single record', async () => {
 
     const postResponse = await mockRequest.post(url).send(newBook);
 
@@ -64,16 +53,13 @@ describe('API SERVER', () => {
 
     const getResponse = await mockRequest.get(`/api/v1/books/${bookId}`);
 
-    console.log(getResponse.body);
-
-    const book = getResponse.body[0];
-
+    const book = getResponse.body;
 
     expect(book.title).toEqual(newBook.title);
 
   });
 
-  xit('following multiple posts, should return the correct count', async () => {
+  it('following multiple posts, should return the correct count', async () => {
 
     const obj = { title: 'test', text: 'foo' };
 
@@ -81,17 +67,22 @@ describe('API SERVER', () => {
 
     await mockRequest.post('/api/v1/books').send(obj);
 
-    const { body } = await mockRequest.get('/api/v1/books');
+    const actual = await Books.where({}).count({});
 
-    expect(body.count).toBe(2);
+    expect(actual).toBe(2);
 
   });
 
   xit('a get should find zero records still', async () => {
 
-    const { body } = await mockRequest.get('/api/v1/books');
+    const actual = await Books.where({}).count();
 
-    expect(body.count).toBe(0);
+    expect(actual).toBe(0);
+
+  });
+
+  xit('should update a record with revised information', async () => {
+
 
   });
 
