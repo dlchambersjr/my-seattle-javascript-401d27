@@ -23,9 +23,9 @@ router.get('/api/v1/books', (req, res, next) => {
 
 //returns a specific id
 router.get('/api/v1/books/:id', (req, res, next) => {
-
+  console.log(req.params);
   const id = req.params.id;
-
+  console.log(id);
   if (id) {
     books.findById(id)
       .then(book => sendJSON(book, res))
@@ -39,6 +39,7 @@ router.post('/api/v1/books', (req, res, next) => {
   const body = req.body;
   console.log(JSON.stringify(body));
 
+  //FIXME: should I use .insertOne({}) instead
   books.create(body)
     .then(result => sendJSON(result, res))
     .catch(next);
@@ -49,11 +50,8 @@ router.put('api/v1/books/:id', (req, res, next) => {
   const id = req.params.id;
   const body = req.body;
 
-  books.findByIdAndUpdate(id) //use {new:true}
-    .then(result => {
-      result = JSON.stringify(Object.assign({}, result, body));
-      sendJSON(result, res);
-    })
+  books.findByIdAndUpdate(id, body) //use {new:true}
+    .then(result => sendJSON(result, res))
     .catch(next);
 });
 
