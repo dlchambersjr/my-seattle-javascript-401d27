@@ -26,7 +26,7 @@ describe('API SERVER', () => {
 
   });
 
-  it('should respond properly on a get request to a valid model', async () => {
+  it('should respond with a 200 on a get request to a valid model', async () => {
 
     const response = await mockRequest.get(url);
 
@@ -34,7 +34,16 @@ describe('API SERVER', () => {
 
   });
 
-  it('should be able to post to /api/v1/books', async () => {
+  // FIXME: More work is needed here
+  xit('should respond properly on a get request with a bad id', async () => {
+
+    const response = await mockRequest.get('/api/v1/books/12345');
+
+    expect(response.status).toBe(400);
+
+  });
+
+  it('should be able to post to /api/v1/books and retrun a 200', async () => {
 
     const response =
       await mockRequest
@@ -73,7 +82,7 @@ describe('API SERVER', () => {
 
   });
 
-  xit('a get should find zero records still', async () => {
+  it('a get should find zero records still', async () => {
 
     const actual = await Books.where({}).count();
 
@@ -81,7 +90,23 @@ describe('API SERVER', () => {
 
   });
 
+  // FIXME: WORKS WITH HTTPie but not JEST
   xit('should update a record with revised information', async () => {
+
+    const postResponse = await mockRequest.post(url).send(newBook);
+
+    console.log(postResponse.body);
+
+    const bookId = postResponse.body._id;
+    console.log(bookId);
+
+    // const putResponse = await mockRequest.put(`/api/v1/books/${bookId} {title: 'PUT-TEST'}`);
+
+    // console.log(putResponse.body);
+
+    // const updatedBook = putResponse.body;
+    // fail(putResponse.body);
+    expect().toBe('PUT-TEST');
 
 
   });
