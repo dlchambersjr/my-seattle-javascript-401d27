@@ -73,7 +73,7 @@ describe('API SERVER', () => {
 
   });
 
-  xit('a get should find zero records still', async () => {
+  it('a get should find zero records still', async () => {
 
     const actual = await Books.where({}).count();
 
@@ -81,7 +81,17 @@ describe('API SERVER', () => {
 
   });
 
-  xit('should update a record with revised information', async () => {
+  it('should update a record with revised information', async () => {
+
+    const postResponse = await mockRequest.post(url).send(newBook);
+
+    const bookId = postResponse.body._id;
+
+    const putResponse = await mockRequest.put(`/api/v1/books/${bookId} title='PUT-TEST'`);
+
+    const updatedBook = putResponse.body;
+    // fail(putResponse.body);
+    expect(updatedBook.title).toBe('PUT-TEST');
 
 
   });

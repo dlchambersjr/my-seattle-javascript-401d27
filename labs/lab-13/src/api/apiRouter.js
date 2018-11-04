@@ -37,7 +37,6 @@ router.get('/api/v1/books/:id', (req, res, next) => {
 // POST ROUTE
 router.post('/api/v1/books', (req, res, next) => {
   const body = req.body;
-  console.log(JSON.stringify(body));
 
   books.create(body)
     .then(result => sendJSON(result, res))
@@ -45,15 +44,15 @@ router.post('/api/v1/books', (req, res, next) => {
 });
 
 // PUT ROUTE
-router.put('api/v1/books/:id', (req, res, next) => {
+router.put('/api/v1/books/:id', (req, res, next) => {
   const id = req.params.id;
   const body = req.body;
+  const updateOptions = {
+    new: true,
+  };
 
-  books.findByIdAndUpdate(id) //use {new:true}
-    .then(result => {
-      result = JSON.stringify(Object.assign({}, result, body));
-      sendJSON(result, res);
-    })
+  books.findByIdAndUpdate(id, body, updateOptions)
+    .then(result => sendJSON(result, res))
     .catch(next);
 });
 
@@ -61,7 +60,7 @@ router.put('api/v1/books/:id', (req, res, next) => {
 // PATCH ROUTE
 
 // DELETE ROUTE
-router.delete('api/v1/books/:id', (req, res, next) => {
+router.delete('/api/v1/books/:id', (req, res, next) => {
   const id = req.params.id;
   books.findByIdAndDelete(id)
     .then(result => sendJSON(result, res))
