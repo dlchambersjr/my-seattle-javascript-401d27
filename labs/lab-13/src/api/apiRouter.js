@@ -18,7 +18,7 @@ let sendJSON = (data, response) => {
 router.get('/api/v1/books', (req, res, next) => {
   books.find()
     .then(result => sendJSON(result, res))
-    .catch = (next);
+    .catch(next);
 });
 
 //returns a specific id
@@ -56,8 +56,21 @@ router.put('/api/v1/books/:id', (req, res, next) => {
     .catch(next);
 });
 
-// FIXME:
+// TODO: I'm not sure I fully understand the differnece between PUT and PATCH:
+
 // PATCH ROUTE
+router.patch('/api/v1/books/:id', (req, res, next) => {
+
+  const id = req.params.id;
+  const body = req.body;
+  const updateOptions = {
+    new: true,
+  };
+
+  books.findByIdAndUpdate(id, body, updateOptions)
+    .then(result => sendJSON(result, res))
+    .catch(next);
+});
 
 // DELETE ROUTE
 router.delete('/api/v1/books/:id', (req, res, next) => {
@@ -65,17 +78,6 @@ router.delete('/api/v1/books/:id', (req, res, next) => {
   books.findByIdAndDelete(id)
     .then(result => sendJSON(result, res))
     .catch(next);
-
 });
-
-
-
-//Helper Routes
-
-
-
-
-
-
 
 export default router;
