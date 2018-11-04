@@ -1,6 +1,7 @@
 import express from 'express';
 
 import books from '../models/books-model';
+import author from '../models/author-model.js';
 
 const router = express.Router();
 

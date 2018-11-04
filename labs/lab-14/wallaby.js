@@ -23,7 +23,7 @@ module.exports = function (wallaby) {
     testFramework: 'jest',
 
     compilers: {
-      'src/**/*.js': wallaby.compilers.babel({
+      '**/*.js': wallaby.compilers.babel({
         'presets': [
           'env',
           'react',
@@ -36,6 +36,10 @@ module.exports = function (wallaby) {
           'transform-react-inline-elements',
         ],
       }),
+    },
+
+    setup: function () {
+      require('babel-core');
     },
 
   };

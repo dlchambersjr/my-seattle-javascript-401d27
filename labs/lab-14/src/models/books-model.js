@@ -2,14 +2,17 @@ import mongoose, { Schema } from 'mongoose';
 
 // Book Schema
 const bookSchema = new Schema({
-  author: { type: Schema.Types.ObjectId, ref: 'Author' },
   title: String,
   genre: String,
+  author: { type: Schema.Types.ObjectId, ref: 'Author' },
 });
 
 
-//Schema methods
-
+//Custom Schema methods
+bookSchema.allInfo('findOne', function (next) {
+  this.populate('author');
+  next();
+});
 
 
 // Books Model

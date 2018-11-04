@@ -1,4 +1,4 @@
-# Lab-13 Single Resource Mongo and Express API
+# Lab-14 Mongo/Express 2 Resource API
 
 ## Installation
 
@@ -32,7 +32,8 @@
 * index.js - entry point
 * server.js - primary server code
 * apiRouter.js - used for routes and how to execute requests
-* books-model.js - Data Structure for information to be saved.
+* books-model.js - Data Structure for information about books with a link to the author model
+* author-model.js - Data structure for information about authors
 * 404.js - middleware to catch 404 errors
 * error.js - middleware to interpret server errors
 * supergoose.js - used for testing purposes.
