@@ -9,10 +9,7 @@ const bookSchema = new Schema({
 
 
 //Custom Schema methods
-bookSchema.allInfo('findOne', function (next) {
-  this.populate('author');
-  next();
-});
+
 
 
 // Books Model

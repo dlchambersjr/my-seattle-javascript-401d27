@@ -2,7 +2,6 @@ import mongoose, { Schema } from 'mongoose';
 
 //Author Schema
 const authorSchema = new Schema({
-  _id: Schema.Types.ObjectsId,
   name: String,
 });
 

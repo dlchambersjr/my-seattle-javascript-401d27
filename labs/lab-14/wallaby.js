@@ -23,19 +23,7 @@ module.exports = function (wallaby) {
     testFramework: 'jest',
 
     compilers: {
-      '**/*.js': wallaby.compilers.babel({
-        'presets': [
-          'env',
-          'react',
-          'stage-0',
-        ],
-        'plugins': [
-          'transform-class-properties',
-          'transform-decorators',
-          'transform-react-constant-elements',
-          'transform-react-inline-elements',
-        ],
-      }),
+      '**/*.js': wallaby.compilers.babel(),
     },
 
     setup: function () {
