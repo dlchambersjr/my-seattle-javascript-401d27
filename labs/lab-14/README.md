@@ -1,4 +1,4 @@
-# Lab-14 Mongo/Express 2 Resource API
+# Lab-13 Single Resource Mongo and Express API
 
 ## Installation
 
@@ -19,25 +19,21 @@
 * 
 
 ### Third Party
-* mongooseJS
 * babel-env
 * babel-eslint
 * babel-register
+* body-parser
+* cors
 * dotenv
 * express
-* uuid
-* cors
-
-
+* mongooseJS
 
 ### Local Modules
 * index.js - entry point
 * server.js - primary server code
-* apiRouter.js - used to routes and how to execute requests
+* apiRouter.js - used for routes and how to execute requests
 * books-model.js - Data Structure for information to be saved.
-
-
-
-
-
-
+* 404.js - middleware to catch 404 errors
+* error.js - middleware to interpret server errors
+* supergoose.js - used for testing purposes.
+* server.test.js - testing file.

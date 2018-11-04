@@ -1,7 +1,6 @@
 import express from 'express';
 
 import books from '../models/books-model';
-import author from '../models/author-models.js';
 
 const router = express.Router();
 
@@ -19,14 +18,14 @@ let sendJSON = (data, response) => {
 router.get('/api/v1/books', (req, res, next) => {
   books.find()
     .then(result => sendJSON(result, res))
-    .catch = (next);
+    .catch(next);
 });
 
 //returns a specific id
 router.get('/api/v1/books/:id', (req, res, next) => {
-  console.log(req.params);
+
   const id = req.params.id;
-  console.log(id);
+
   if (id) {
     books.findById(id)
       .then(book => sendJSON(book, res))
@@ -38,44 +37,47 @@ router.get('/api/v1/books/:id', (req, res, next) => {
 // POST ROUTE
 router.post('/api/v1/books', (req, res, next) => {
   const body = req.body;
-  console.log(JSON.stringify(body));
 
-  //FIXME: should I use .insertOne({}) instead
   books.create(body)
     .then(result => sendJSON(result, res))
     .catch(next);
 });
 
 // PUT ROUTE
-router.put('api/v1/books/:id', (req, res, next) => {
+router.put('/api/v1/books/:id', (req, res, next) => {
   const id = req.params.id;
   const body = req.body;
+  const updateOptions = {
+    new: true,
+  };
 
-  books.findByIdAndUpdate(id, body) //use {new:true}
+  books.findByIdAndUpdate(id, body, updateOptions)
     .then(result => sendJSON(result, res))
     .catch(next);
 });
 
-// FIXME:
+// TODO: I'm not sure I fully understand the differnece between PUT and PATCH:
+
 // PATCH ROUTE
+router.patch('/api/v1/books/:id', (req, res, next) => {
+
+  const id = req.params.id;
+  const body = req.body;
+  const updateOptions = {
+    new: true,
+  };
+
+  books.findByIdAndUpdate(id, body, updateOptions)
+    .then(result => sendJSON(result, res))
+    .catch(next);
+});
 
 // DELETE ROUTE
-router.delete('api/v1/books/:id', (req, res, next) => {
+router.delete('/api/v1/books/:id', (req, res, next) => {
   const id = req.params.id;
   books.findByIdAndDelete(id)
     .then(result => sendJSON(result, res))
     .catch(next);
-
 });
-
-
-
-//Helper Routes
-
-
-
-
-
-
 
 export default router;
