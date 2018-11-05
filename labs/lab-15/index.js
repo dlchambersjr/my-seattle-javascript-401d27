@@ -1,8 +1,3 @@
-/**
- * put your server bootstrap code here
- * E.g. require dotenv, configure mongoose, start your server, etc. 
- * Note: keep this separate from app.js for easier testing
- * */
 'use strict';
 
 require('dotenv').config();

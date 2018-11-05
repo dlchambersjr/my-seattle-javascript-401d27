@@ -33,7 +33,10 @@
     "supertest": "^3.3.0"
   },
   "jest": {
-    "testPathIgnorePatterns":["<rootDir>/__tests__/supergoose.js", "<rootDir>/node_modules/"]
+    "testPathIgnorePatterns": [
+      "<rootDir>/__tests__/supergoose.js",
+      "<rootDir>/node_modules/"
+    ]
   },
   "description": ""
 }
