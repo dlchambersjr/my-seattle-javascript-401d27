@@ -15,9 +15,9 @@ afterEach(async () => {
   await Books.deleteMany({});
 });
 
-describe('API SERVER', () => {
+xdescribe('API SERVER', () => {
 
-  it('should respond with a 404 on an invalid route', async () => {
+  xit('should respond with a 404 on an invalid route', async () => {
 
     const response =
       await mockRequest.get('/invalidRoute');
@@ -26,7 +26,7 @@ describe('API SERVER', () => {
 
   });
 
-  it('should respond with a 200 on a get request to a valid model', async () => {
+  xit('should respond with a 200 on a get request to a valid model', async () => {
 
     const response = await mockRequest.get(url);
 
@@ -43,7 +43,7 @@ describe('API SERVER', () => {
 
   });
 
-  it('should be able to post to /api/v1/books and retrun a 200', async () => {
+  xit('should be able to post to /api/v1/books and retrun a 200', async () => {
 
     const response =
       await mockRequest
@@ -54,7 +54,7 @@ describe('API SERVER', () => {
 
   });
 
-  it('following a post, should find a single record', async () => {
+  xit('following a post, should find a single record', async () => {
 
     const postResponse = await mockRequest.post(url).send(newBook);
 
@@ -68,7 +68,7 @@ describe('API SERVER', () => {
 
   });
 
-  it('following multiple posts, should return the correct count', async () => {
+  xit('following multiple posts, should return the correct count', async () => {
 
     const obj = { title: 'test', text: 'foo' };
 
@@ -82,7 +82,7 @@ describe('API SERVER', () => {
 
   });
 
-  it('a get should find zero records still', async () => {
+  xit('a get should find zero records still', async () => {
 
     const actual = await Books.where({}).count();
 

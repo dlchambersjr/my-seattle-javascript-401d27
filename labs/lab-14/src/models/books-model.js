@@ -4,13 +4,11 @@ import mongoose, { Schema } from 'mongoose';
 const bookSchema = new Schema({
   title: String,
   genre: String,
-  author: { type: Schema.Types.ObjectId, ref: 'Author' },
+  author: { type: Schema.Types.ObjectId, ref: 'Authors' },
 });
 
-
 //Custom Schema methods
-
-
+// 
 
 // Books Model
 const Book = mongoose.model('Books', bookSchema);
