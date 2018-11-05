@@ -37,7 +37,6 @@ describe('Test to verify data models', () => {
     const bookInfo = { title: 'A Christmas Carol', genre: 'Classics', author: author._id };
     const { _id } = await Books.create(bookInfo);
 
-    // const book = await Books.findById({ _id });
     const book = await Books.findById({ _id }).populate('author');
 
     expect(book.title).toBe(bookInfo.title);

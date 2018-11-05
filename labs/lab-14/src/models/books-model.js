@@ -8,7 +8,7 @@ const bookSchema = new Schema({
 });
 
 //Custom Schema methods
-// 
+
 
 // Books Model
 const Book = mongoose.model('Books', bookSchema);
