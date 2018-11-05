@@ -5,7 +5,7 @@ const { server } = require('../src/server.js');
 const mockRequest = supergoose(server);
 
 const url = '/api/v1/books';
-const newBook = { title: 'test', genre: 'testing' };
+const newBook = { title: 'test', genre: 'testing', author: 'TBD' };
 
 // Hooks for Jest
 beforeAll(startDB);

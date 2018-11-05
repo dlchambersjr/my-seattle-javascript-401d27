@@ -48,7 +48,7 @@ router.get('/api/v1/:model/:id', (req, res, next) => {
     errorHandler('bad request', req, res, next);
     return;
   } else {
-    model.findById(id)
+    model.findById({ _id: id }).populate('author')
       .then(book => sendJSON(book, res))
       .catch(next);
   }
@@ -70,24 +70,29 @@ router.post('/api/v1/:model', (req, res, next) => {
     return;
   }
 
-  if (model === 'books' && authorInfo) {
-    console.log(`MADE IT INTO POST`);
-    Authors.create(authorInfo);
-    // .then(author => {
-    //   const bookInfo = Object.assign({}, body, { author: author._id });
-    //   Books.create(bookInfo)
-    //     .then(result => {
-    //       Books.findById({ id: result._id }).populate('author');
-    //     })
-    //     .then(result => sendJSON(result, res));
-    // })
-    // .catch(next);
-  }
 
+  Authors.create(authorInfo)
+    .then(author => {
+      const bookInfo = Object.assign({}, body, { author: author._id });
 
-  model.create(body)
-    .then(result => sendJSON(result, res))
+      console.log(bookInfo);
+
+      Books.create(bookInfo)
+        .then(result => {
+          console.log(result);
+          const newBook = Books.findById({ _id: result._id }).populate('author');
+          console.log(newBook.schema);
+          sendJSON(result, res);
+        })
+        .catch(next);
+    })
     .catch(next);
+
+
+
+  // model.create(body)
+  //   .then(result => sendJSON(result, res))
+  //   .catch(next);
 });
 
 // PUT ROUTE
