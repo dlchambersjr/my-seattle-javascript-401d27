@@ -32,11 +32,11 @@ module.exports = {
     if (!isRunning) {
       app.listen(port, () => {
         isRunning = true;
-        console.log(`LAB-13 SERVER up on PORT: ${port}`);
+        console.log(`LAB-14 SERVER up on PORT: ${port}`);
       });
     }
     else {
-      console.log('LAB-13 SERVER is already running');
+      console.log('LAB-14 SERVER is already running');
     }
   },
 };
