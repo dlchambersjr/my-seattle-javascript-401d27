@@ -29,7 +29,7 @@ userSchema.methods.generateToken = function () {
 // Compare a plain text password against the hashed one on file
 userSchema.methods.comparePassword = async function (password) {
   return await bcrypt.compare(password, this.password)
-    .then(valid => valid ? true : null);
+    .then(valid => valid ? this : null);
 };
 
 // Validate the a token if that was sent
