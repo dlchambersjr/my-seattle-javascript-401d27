@@ -2,6 +2,8 @@
 
 require('dotenv').config();
 
+require('babel-polyfill');
+
 require('babel-register');
 
 const mongoose = require('mongoose');
