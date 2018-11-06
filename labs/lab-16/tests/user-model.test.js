@@ -82,7 +82,7 @@ describe('Test the User Model', () => {
 
   it('should fail if username is NOT unique', async () => {
 
-    const firstUser = await createUser();
+    await createUser();
 
     try {
 
@@ -109,11 +109,15 @@ describe('Test the User Model', () => {
 
   it('should match a good password', async () => {
 
-    const password = 'testpassword';
+    const password = 'testPassword';
 
     const user = await createUser(undefined, undefined, password);
 
+    console.log(user);
+
     const passwordsMatch = await user.comparePassword(password);
+
+    console(passwordsMatch);
 
     expect(passwordsMatch).toBeTruthy();
 
