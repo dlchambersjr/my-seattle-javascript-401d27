@@ -1,7 +1,7 @@
 {
-  "name": "lab-13",
+  "name": "lab-14",
   "version": "1.0.0",
-  "description": "Lab-13-Single Resource Mongo and Express API",
+  "description": "Lab-14-Double Resource Mongo and Express API",
   "main": "index.js",
   "directories": {
     "test": "test"
@@ -9,7 +9,8 @@
   "scripts": {
     "test": "jest --verbose --watchAll",
     "lint": "eslint **/*.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "debug": "nodemon --inspect index.js"
   },
   "author": "David Chambers",
   "license": "MIT",
