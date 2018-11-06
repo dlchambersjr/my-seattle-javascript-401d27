@@ -12,11 +12,7 @@ const hash = (password, salt = 10) => {
 
 const compare = (password, storedPass) => {
 
-  console.log(storedPass);
-
   const hashedPass = hash(password);
-
-  console.log(hashedPass === storedPass)
 
   return (hashedPass === storedPass);
 

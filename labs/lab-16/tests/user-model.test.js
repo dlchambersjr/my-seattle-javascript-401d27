@@ -120,14 +120,35 @@ describe('Test the User Model', () => {
 
   });
 
-  it('should authenticate if credientials match', () => {
+  it('should not match bad password', async () => {
+
+    const user = await createUser();
+
+    const passwordsMatch = await user.comparePassword('badPass');
+
+    expect(passwordsMatch).toBeFalsy();
+  });
 
 
+  it('should authenticate if credientials match', async () => {
 
+    await createUser();
+
+    const user = await User.authenticate({ username: 'foo', password: 'foobar' });
+
+    expect(user.username).toBe('foo');
 
   });
 
-  it('should NOT authenticate if credientials DO NOT match', () => { });
+  it('should NOT authenticate if credientials DO NOT match', async () => {
+
+    await createUser();
+
+    const user = await User.authenticate({ username: 'foo', password: 'badPass' });
+
+    expect(user).toBeNull();
+
+  });
 
 
 });

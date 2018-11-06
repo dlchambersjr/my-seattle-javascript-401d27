@@ -36,7 +36,9 @@ userSchema.methods.comparePassword = async function (password) {
 
 // Validate the a token if that was sent
 userSchema.statics.authenticate = function (auth) {
-  let query = auth.token;
+
+  let query = { username: auth.username };
+
   return this.findOne(query)
     .then(user => user && user.comparePassword(auth.password))
     .catch(error => error);
