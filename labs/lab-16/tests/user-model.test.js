@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-import supergoose, { startDB, stopDB } from './supergoose.js';
+import { startDB, stopDB } from './supergoose.js';
 import User from '../src/userApi/user-model.js';
 
 beforeAll(startDB);
@@ -17,15 +17,31 @@ function createUser(username = 'foo', email = 'foo@bar.com', password = 'foobar'
 
 describe('Test the User Model', () => {
 
-  it('should create a new user', () => { });
+  it('should create a new user', async () => {
+
+    const newUser = await createUser();
+
+    expect(newUser.name).toBe('foo');
+
+
+  });
+
   it('should find a user', () => { });
+
   it('should fail if username is missing', () => { });
+
   it('should fail if email is missing', () => { });
+
   it('should fail if password is missing', () => { });
+
   it('should fail if username is NOT unique', () => { });
+
   it('should generate a token', () => { });
+
   it('should match a good password', () => { });
+
   it('should authenticate if credientials match', () => { });
+
   it('should NOT authenticate if credientials DO NOT match', () => { });
 
 
