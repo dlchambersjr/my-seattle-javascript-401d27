@@ -18,7 +18,7 @@ function createUser(username = 'foo', email = 'foo@bar.com', password = 'foobar'
 describe('Test the User Model', () => {
 
   // FIXME:
-  xit('should create a new user', async () => {
+  it('should create a new user', async () => {
 
     const newUser = await createUser();
 

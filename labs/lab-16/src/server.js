@@ -1,26 +1,27 @@
+// Load Express Framework
 import express from 'express';
+
+// Load local middleware
+import authRouter from './middleware/auth.js'
 import notFound from './middleware/404.js';
 import error from './middleware/error.js';
 
 const app = express();
 
-// sign on life route, real routes should be in own router
-app.get('/ping', (request, response) => {
-  response.send('pong');
-});
-
+//use local middleware
+app.use(authRouter);
 app.use(notFound);
 app.use(error);
 
 let server;
 
-module.exports =  {
+module.exports = {
   app,
   start: (port) => {
     server = app.listen(port, () => console.log('Listening on port ' + port));
   },
   stop: () => {
-    server.close( () => {
+    server.close(() => {
       console.log('Server has been stopped');
     });
   },
