@@ -17,27 +17,27 @@ const userSchema = new Schema({
 });
 
 // create the pre methods
-userSchema.pre('save', async function () {
-  this.password = await bcrypt.hash(this.password, 11); //TODO:
-});
+// userSchema.pre('save', async function () {
+//   this.password = await bcrypt.hash(this.password, 11); //TODO:
+// });
 
 // Create a JSON Token from the user id and a password
 userSchema.methods.generateToken = function () {
-  return jwt.sign({ username: this.username }, this.password);//TODO:
+  return jwt.sign({ username: this.username }, this.password);
 };
 
 // Compare a plain text password against the hashed one on file
 userSchema.methods.comparePassword = async function (password) {
   return await bcrypt.compare(password, this.password)
-    .then(valid => valid ? this : null);
+    .then(valid => valid ? true : null);
 };
 
 // Validate the a token if that was sent
-userSchema.statics.authenticate = function (auth) {
-  let query = auth.token;
-  return this.findOne(query)
-    .then(user => user && user.comparePassword(auth.password))
-    .catch(error => error);
-};
+// userSchema.statics.authenticate = function (auth) {
+//   let query = auth.token;
+//   return this.findOne(query)
+//     .then(user => user && user.comparePassword(auth.password))
+//     .catch(error => error);
+// };
 
 export default mongoose.model('Users', userSchema);

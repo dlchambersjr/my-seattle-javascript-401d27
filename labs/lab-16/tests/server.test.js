@@ -1,17 +1,17 @@
 import supergoose, { startDB, stopDB } from './supergoose.js';
 import { app } from '../src/server.js';
-import User from '../src/user/user.js'
+import User from '../src/userApi/user-model.js';
 
 const mockRequest = supergoose(app);
 
 beforeAll(startDB);
 afterAll(stopDB);
-beforeEach(async () => {
-  //pre-load info
-});
-afterEach(async () => {
-  //clear test data
-});
+// beforeEach(async () => {
+//   //pre-load info
+// });
+// afterEach(async () => {
+//   //clear test data
+// });
 
 describe('API', () => {
 
@@ -20,7 +20,7 @@ describe('API', () => {
     expect(response.text).toBe('pong');
   });
 
-  it('should sign up with good creds', async () => {
+  xit('should sign up with good creds', async () => {
     const userInfo = { username: 'foo', email: 'foo@bar.com', password: 'foobar' };
     const response = await mockRequest.post('/signup').send(userInfo);
     expect(response.text.split('.').length).toBe(3);

@@ -21,24 +21,104 @@ describe('Test the User Model', () => {
 
     const newUser = await createUser();
 
-    expect(newUser.name).toBe('foo');
+    expect(newUser.username).toBe('foo');
+    expect(newUser.email).toBe('foo@bar.com');
+    expect(newUser.password).toBe('foobar');
+
+  });
+
+  it('should find a user', async () => {
+
+    const user = await createUser();
+
+    const foundUser = await User.findById(user._id);
+
+    expect(foundUser.username).toBe(user.username);
 
 
   });
 
-  it('should find a user', () => { });
+  it('should fail if username is missing', async () => {
 
-  it('should fail if username is missing', () => { });
+    try {
 
-  it('should fail if email is missing', () => { });
+      await createUser(null);
 
-  it('should fail if password is missing', () => { });
+    } catch (err) {
 
-  it('should fail if username is NOT unique', () => { });
+      expect(err.message).toEqual(expect.stringContaining('Users validation failed: username'));
 
-  it('should generate a token', () => { });
+    }
 
-  it('should match a good password', () => { });
+  });
+
+  it('should fail if email is missing', async () => {
+
+    try {
+
+      await createUser(undefined, null);
+
+    } catch (err) {
+
+      expect(err.message).toEqual(expect.stringContaining('Users validation failed: email'));
+
+    }
+
+  });
+
+  it('should fail if password is missing', async () => {
+
+    try {
+
+      await createUser(undefined, undefined, null);
+
+    } catch (err) {
+
+      expect(err.message).toEqual(expect.stringContaining('Users validation failed: password'));
+
+    }
+
+  });
+
+  it('should fail if username is NOT unique', async () => {
+
+    const firstUser = await createUser();
+
+    try {
+
+      await createUser(undefined, undefined, 'foobar');
+
+    } catch (err) {
+
+      expect(err.message).toEqual(expect.stringContaining('E11000 duplicate key error dup key'));
+
+    }
+
+  });
+
+  it('should generate a token', async () => {
+
+    const user = await createUser();
+    const token = user.generateToken();
+
+    expect(token).toBeDefined();
+
+    expect(token.split('.').length).toBe(3);
+
+  });
+
+  it('should match a good password', async () => {
+
+    const password = 'testpassword';
+
+    const user = await createUser(undefined, undefined, password);
+
+    const passwordsMatch = await user.comparePassword(password);
+
+    expect(passwordsMatch).toBeTruthy();
+
+
+  });
 
   it('should authenticate if credientials match', () => { });
 
