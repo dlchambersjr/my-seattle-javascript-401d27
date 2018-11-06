@@ -7,12 +7,16 @@ const hash = (password, salt = 10) => {
       hashedValue += (password.charCodeAt(j) * 256);
     }
   }
-  return hashedValue;
+  return hashedValue.toString();
 };
 
 const compare = (password, storedPass) => {
 
+  console.log(storedPass);
+
   const hashedPass = hash(password);
+
+  console.log(hashedPass === storedPass)
 
   return (hashedPass === storedPass);
 

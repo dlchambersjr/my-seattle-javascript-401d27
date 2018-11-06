@@ -4,8 +4,6 @@ import mongoose, { Schema } from 'mongoose';
 // Load the hashing module
 import bcrypt from '../middleware/hashing.js';
 
-console.log(bcrypt);
-
 // Load JSON tokensation module
 import jwt from 'jsonwebtoken';
 
@@ -29,18 +27,19 @@ userSchema.methods.generateToken = function () {
 };
 
 // Compare a plain text password against the hashed one on file
-userSchema.methods.comparePassword = function (password) {
-  console.log(this);
-  return bcrypt.compare(password, this.password)
-    .then(valid => valid ? this : null);
+userSchema.methods.comparePassword = async function (password) {
+
+  const validPass = await bcrypt.compare(password, this.password);
+
+  return (validPass ? this : null);
 };
 
 // Validate the a token if that was sent
-// userSchema.statics.authenticate = function (auth) {
-//   let query = auth.token;
-//   return this.findOne(query)
-//     .then(user => user && user.comparePassword(auth.password))
-//     .catch(error => error);
-// };
+userSchema.statics.authenticate = function (auth) {
+  let query = auth.token;
+  return this.findOne(query)
+    .then(user => user && user.comparePassword(auth.password))
+    .catch(error => error);
+};
 
 export default mongoose.model('Users', userSchema);
