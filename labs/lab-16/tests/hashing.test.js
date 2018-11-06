@@ -1,16 +1,18 @@
 'use script';
 
-import myBcrypt from '../src/middleware/hashing.js';
+import bcrypt from '../src/middleware/hashing.js';
 
-const bcrypt = new myBcrypt();
+const password = 'testPassword';
 
-const hash = bcrypt.hash('testPassword', 10);
+describe('Test Hashing Module', () => {
+  it('should take a password', () => {
 
-console.log(hash);
+    const hashedPass = bcrypt.hash(password);
 
-it('test', () => {
+    const matchedPass = bcrypt.compare(password, hashedPass);
 
-  expect(hash).toBe(3325440);
+    expect(matchedPass).toBeTruthy();
 
+  });
 
 });

@@ -23,6 +23,7 @@ describe('Test the User Model', () => {
 
     expect(newUser.username).toBe('foo');
     expect(newUser.email).toBe('foo@bar.com');
+    // FIXME:
     expect(newUser.password).toBe('foobar');
 
   });

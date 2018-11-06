@@ -2,8 +2,9 @@
 import mongoose, { Schema } from 'mongoose';
 
 // Load the hashing module
-import myBcrypt from '../middleware/hashing.js';
-const bcrypt = new myBcrypt();
+import bcrypt from '../middleware/hashing.js';
+
+console.log(bcrypt);
 
 // Load JSON tokensation module
 import jwt from 'jsonwebtoken';
@@ -19,7 +20,7 @@ const userSchema = new Schema({
 
 // create the pre methods
 userSchema.pre('save', async function () {
-  this.password = await bcrypt.hash(this.password, 10); //TODO:
+  this.password = await bcrypt.hash(this.password, 10);
 });
 
 // Create a JSON Token from the user id and a password
@@ -28,9 +29,10 @@ userSchema.methods.generateToken = function () {
 };
 
 // Compare a plain text password against the hashed one on file
-userSchema.methods.comparePassword = async function (password) {
-  return await bcrypt.compare(password, this.password)
-    .then(valid => valid ? this : null)
+userSchema.methods.comparePassword = function (password) {
+  console.log(this);
+  return bcrypt.compare(password, this.password)
+    .then(valid => valid ? this : null);
 };
 
 // Validate the a token if that was sent
