@@ -5,6 +5,7 @@ import User from '../userApi/user-model.js';
 export default (req, res, next) => {
 
   let authenticate = (auth) => {
+
     // Validate the user using the model's authenticate method
     User.authenticate(auth)
       // We will always get back a "user" from mongo ... although it might be real and it might be null
