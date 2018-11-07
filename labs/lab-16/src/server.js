@@ -2,14 +2,21 @@
 import express from 'express';
 
 // Load local middleware
-import authRouter from './middleware/auth.js'
+import userRouter from './userApi/user-router.js';
+
+// import authRouter from './middleware/auth.js';
 import notFound from './middleware/404.js';
 import error from './middleware/error.js';
 
+
 const app = express();
 
+app.use(express.json());
+
 //use local middleware
-app.use(authRouter);
+
+app.use(userRouter);
+// app.use(authRouter);
 app.use(notFound);
 app.use(error);
 

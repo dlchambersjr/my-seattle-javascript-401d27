@@ -24,12 +24,10 @@ describe('Test the API', () => {
       await mockRequest.post('/signup')
         .send(newUserInfo);
 
-    console.log(response.text);
-
     expect(response.text.split('.').length).toBe(3);
   });
 
-  xit('should sign fail with bad creds', async () => {
+  it('should sign fail with bad creds', async () => {
 
     const userInfo = { username: 'foo', email: 'foo@bar.com' };
 
