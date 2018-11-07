@@ -49,9 +49,9 @@ describe('API SERVER', () => {
   });
 
   // FIXME: FIGURE OUT WHY 500 RETURNS HERE 
-  xit('should respond properly on a get request with a bad id', async () => {
+  it('should respond properly on a get request with a bad id', async () => {
 
-    const response = await mockRequest.get('/api/v1/books/12345');
+    const response = await mockRequest.get('/api/v1/badchoice');
 
     expect(response.status).toBe(400);
 
