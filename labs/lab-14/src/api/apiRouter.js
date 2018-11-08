@@ -2,6 +2,7 @@ import express from 'express';
 
 import Books from '../models/books-model';
 import Authors from '../models/author-model.js';
+import notFound from '../middleware/404.js';
 import errorHandler from '../middleware/error.js';
 
 //setup the API "dictionary"
@@ -58,6 +59,7 @@ router.get('/api/v1/:model/:id', (req, res, next) => {
 // POST ROUTE
 router.post('/api/v1/:model', (req, res, next) => {
   const model = models[req.params.model];
+
   const body = req.body;
 
   const authorInfo = {};
@@ -66,27 +68,28 @@ router.post('/api/v1/:model', (req, res, next) => {
   console.log(authorInfo);
 
   if (!model) {
-    errorHandler('model not found', req, res, next);
+    notFound('model not found', req, res, next);
     return;
   }
 
 
-  Authors.create(authorInfo)
-    .then(author => {
-      const bookInfo = Object.assign({}, body, { author: author._id });
 
-      console.log(bookInfo);
+  // Authors.create(authorInfo)
+  //   .then(author => {
+  //     const bookInfo = Object.assign({}, body, { author: author._id });
 
-      Books.create(bookInfo)
-        .then(result => {
-          console.log(result);
-          const newBook = Books.findById({ _id: result._id }).populate('author');
-          console.log(newBook.schema);
-          sendJSON(result, res);
-        })
-        .catch(next);
-    })
-    .catch(next);
+  //     console.log(bookInfo);
+
+  //     Books.create(bookInfo)
+  //       .then(result => {
+  //         console.log(result);
+  //         const newBook = Books.findById({ _id: result._id }).populate('author');
+  //         console.log(newBook.schema);
+  //         sendJSON(result, res);
+  //       })
+  //       .catch(next);
+  //   })
+  //   .catch(next);
 
 
 
