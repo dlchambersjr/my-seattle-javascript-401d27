@@ -18,8 +18,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(userRouter);
 
 //use local middleware
-app.use(authRouter);
 app.use(notFound);
+app.use(authRouter);
 app.use(error);
 
 let server;
