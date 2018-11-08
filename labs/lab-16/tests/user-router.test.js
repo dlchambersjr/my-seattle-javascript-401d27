@@ -18,7 +18,7 @@ afterEach(async () => {
 
 describe('Test the API', () => {
 
-  it('should sign up with good creds', async () => {
+  it('should signup a user with good credentials', async () => {
 
     const response =
       await mockRequest.post('/signup')
@@ -27,7 +27,7 @@ describe('Test the API', () => {
     expect(response.text.split('.').length).toBe(3);
   });
 
-  it('should sign fail with bad creds', async () => {
+  it('should NOT signup a user with BAD/incomplete credentials', async () => {
 
     const userInfo = { username: 'foo', email: 'foo@bar.com' };
 
@@ -37,7 +37,7 @@ describe('Test the API', () => {
 
   });
 
-  xit('should sign in', async () => {
+  it('should allow a valid USER to sign in.', async () => {
 
     const userInfo = { username: 'foo', email: 'foo@bar.com', password: 'foobar' };
 
@@ -48,5 +48,25 @@ describe('Test the API', () => {
     expect(response.text.split('.').length).toBe(3);
   });
 
+  it('should NOT allow an invalid USER to sign in.', async () => {
+
+    const userInfo = { username: 'foo', email: 'foo@bar.com', password: 'foobar' };
+
+    await mockRequest.post('/signup').send(userInfo);
+
+    try {
+      await mockRequest.get('/signin').auth('foobar', 'barfoo');
+    }
+    catch (error) {
+      expect(error.status).toBe(401);
+
+      console.log(error.text);
+
+      // expect(response.message).toBe('Unauthorized');
+
+    }
+
+
+  });
 
 });

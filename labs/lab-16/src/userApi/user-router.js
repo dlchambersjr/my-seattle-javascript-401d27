@@ -1,6 +1,6 @@
 import express from 'express';
 import User from './user-model.js';
-// import auth from '../middleware/auth.js';
+import auth from '../middleware/auth.js';
 
 // import { create } from 'domain';
 // import { createUnzip } from 'zlib';
@@ -8,9 +8,11 @@ import User from './user-model.js';
 
 const router = express.Router();
 
-// router.get('/signin', auth, (request, response) => {
-//   response.send('where can the token be?');
-// });
+router.get('/signin', auth, (req, res) => {
+
+  res.send(req.token);
+
+});
 
 //Add users via signup.
 router.post('/signup', async (req, res) => {

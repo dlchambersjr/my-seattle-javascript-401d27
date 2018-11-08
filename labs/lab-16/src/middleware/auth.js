@@ -8,33 +8,32 @@ export default (req, res, next) => {
 
     // Validate the user using the model's authenticate method
     User.authenticate(auth)
-      // We will always get back a "user" from mongo ... although it might be real and it might be null
       .then(user => {
-        // If it's null, go to getAuth() ... which should return an error or a login page
         if (!user) {
           getAuth();
-        }
-        // We must have a good user.  Generate a token and jack that onto the req object and move on
-        // we could alternatively put the whole user instance on req.user if there's need for it later?
-        else {
+        } else {
           req.token = user.generateToken();
           next();
         }
       })
-      // Send any errors to next() which will invoke the error handling middleware
       .catch(next);
 
   };
 
   // If we're not authenticated either show an error or pop a window
   let getAuth = () => {
-    // Sending this out, will show the annoying pop-up window in the browser
-    // While useless IRL, it's fun to play with this and see how you can login with a browser
-    // res.set({
-    //   'WWW-Authenticate': 'Basic realm="Super Secret Area"'
-    // }).send(401);
 
-    // For our actual purposes, though, send back a JSON formatted error object through our middleware
+    /* TODO: Explore later
+    Explore this code after completing lab
+     Sending this out, will show the annoying pop-up window in the browser
+     While useless IRL, it's fun to play with this and see how you can login with a browser
+    res.set({
+      'WWW-Authenticate': 'Basic realm="Super Secret Area"'
+    }).send(401);
+
+    For our actual purposes, though, send back a JSON formatted error object through our middleware
+    */
+
     next({ status: 401, statusMessage: 'Unauthorized', message: 'Invalid User ID/Password' });
   };
 
@@ -49,9 +48,7 @@ export default (req, res, next) => {
 
     // BASIC Auth
     if (authHeader.match(/basic/i)) {
-      // authHeader will have something like this in it:
-      //   Basic ZnJlZDpzYW1wbGU=
-
+      // SAMPLE BASIC: Basic ZnJlZDpzYW1wbGU=
       // Break that apart ...
       let base64Header = authHeader.replace(/Basic\s+/i, ''); // ZnJlZDpzYW1wbGU=
       let base64Buffer = Buffer.from(base64Header, 'base64'); // <Buffer 01 02...>
