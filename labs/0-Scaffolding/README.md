@@ -17,13 +17,7 @@
 * 
 
 ### Third Party
-* babel-env
-* babel-eslint
-* babel-register
-* dotenv
-* express
-* uuid
-* cors
+* 
 
 
 ### Local Modules

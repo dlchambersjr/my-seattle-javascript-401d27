@@ -2,9 +2,9 @@ module.exports = function (wallaby) {
 
   return {
 
-    files: ['src/**/*.js', 'test/supergoose.js'],
+    files: ['src/**/*.js', '__tests__/supergoose.js'],
 
-    tests: ['test/**/*.test.js'],
+    tests: ['__tests__/**/*.test.js'],
 
     env: {
 
