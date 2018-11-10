@@ -23,7 +23,7 @@ userSchema.pre('save', async function () {
 
 // Create a JSON Token from the user id and a password
 userSchema.methods.generateToken = function () {
-  return jwt.sign({ username: this.username }, this.password);
+  return jwt.sign({ username: this.username }, process.env.APP_SECRET);
 };
 
 // Compare a plain text password against the hashed one on file
